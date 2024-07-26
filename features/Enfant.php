@@ -1,6 +1,6 @@
 <?php
-  require_once 'connect.php';
-  require_once 'Reunification.php';
+require_once __DIR__ . '/connect.php';
+require_once __DIR__ . '/Reunification.php';
 
   class Enfant {
     

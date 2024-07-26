@@ -1,5 +1,5 @@
 <?php
-  require_once 'connect.php';
+  require_once __DIR__.  '/connect.php';
 
   class Comptabilite {
     
@@ -10,37 +10,38 @@
       $this->comptabilite = 'comptabilite';
     }
 
-    public function insert ($montant, $motif, $date, $heure, $Nfacture, $typeComptabilite, $typeTrie)
+    public function insert ($montant, $motif, $date, $Nfacture, $typeComptabilite, $idTypeTrie)
     {
       global $pdo;
-	  $sql = 'INSERT INTO comptabilite(montant, motif, `Date`, `heure`, Nfacture, typeComptabilite, typeTrie) VALUES(?,?,?,?,?,?,?)';
+	  $sql = 'INSERT INTO comptabilite(montant, motif, `Date`, Nfacture, typeComptabilite, idTypeTrie) VALUES(?,?,?,?,?,?)';
 
 	  $statement = $pdo->prepare($sql);
 	  
 	  $statement->execute([
-		$montant, $motif, $date, $heure, $Nfacture, $typeComptabilite, $typeTrie
+		$montant, $motif, $date, $Nfacture, $typeComptabilite, $idTypeTrie
 	  ]);
 
 	  return $pdo->lastInsertId();
     }
 
-    public function update ($montant, $motif, $date, $heure, $Nfacture, $typeComptabilite, $typeTrie, $idComptabilite)
+    public function update ($montant, $motif, $date, $Nfacture, $idTypeTrie, $idComptabilite)
     {
 		global $pdo;
 		$comptabilite = [
-			$montant, $motif, $date, $heure, $Nfacture, $typeComptabilite, $typeTrie, $idComptabilite
+			$montant, $motif, $date, $Nfacture, $idTypeTrie, $idComptabilite
 		];
 		
 		$sql = 'UPDATE comptabilite
-				SET montant = ?, motif = ?, `date` = ?, heure = ?, Nfacture = ?, typeComptabilite = ?, typeTrie = ?
+				SET montant = ?, motif = ?, `date` = ?, Nfacture = ?, idTypeTrie = ?
 				WHERE idComptabilite = ?';
 		
 		$statement = $pdo->prepare($sql);
 
 		// execute the UPDATE statment
 		if ($statement->execute($comptabilite)) {
-			echo 'The publisher has been updated successfully!';
+			return true;
 		}
+		return false;
     }
 
     public function delete ($idComptabilite)
@@ -53,21 +54,41 @@
 		$statement = $pdo->prepare($sql);
 
 		// execute the DELETE statment
-		if ($statement->execute($idComptabilite)) {
-			echo 'The publisher has been successfully!';
+		if ($statement->execute([$idComptabilite])) {
+			return true;
 		}
+		return false;
     }
 
-    public function read()
+    public function read($type = null)
     {
 		global $pdo;
-		$sql = 'SELECT * FROM comptabilite LIMIT 800 order by idComptabilite desc';
+		$sql = 'SELECT * FROM comptabilite ORDER BY idComptabilite DESC LIMIT 800';
+		if ($type == 'entrée') {
+			$sql = "SELECT * FROM comptabilite WHERE typeComptabilite = 'entrée' ORDER BY idComptabilite DESC LIMIT 800";
+		}
+		if ($type == 'sortie') {
+			$sql = "SELECT * FROM comptabilite WHERE typeComptabilite = 'sortie' ORDER BY idComptabilite DESC LIMIT 800";
+		}
 
 		$statement = $pdo->query($sql);
 
 		// get all publishers
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+	public function find_one($idComptabilite)
+	{
+		global $pdo;
+		$sql = 'SELECT * FROM comptabilite WHERE idComptabilite = ?';
+		$stmt = $pdo->prepare($sql);
+
+		// Execute the statement
+		$stmt->execute([$idComptabilite]);
+
+		// Fetch all results
+		return $stmt->fetchAll();
+	}
 
 	public function querySurUneDate($date)
 	{
