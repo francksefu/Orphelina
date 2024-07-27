@@ -1,6 +1,7 @@
 <?php
     session_start();
     require __DIR__.'/../inc/flash.php';
+    require __DIR__.'/../inc/func_comptabilite.php';
     require_once __DIR__.'/../features/Comptabilite.php';
     require __DIR__.'/../inc/header.php';
     $errors = [];

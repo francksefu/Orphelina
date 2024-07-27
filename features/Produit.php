@@ -13,7 +13,7 @@ require_once __DIR__ . '/connect.php';
     public function insert ($nom, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit)
     {
       global $pdo;
-	  $sql = 'INSERT INTO produit(nom, `description`, quantiteSotck, prixUnitaire, idTypeProduit) VALUES(?,?,?,?,?)';
+	  $sql = 'INSERT INTO produit(nom, `description`, quantiteStock, prixUnitaire, idTypeProduit) VALUES(?,?,?,?,?)';
 
 	  $statement = $pdo->prepare($sql);
 	  
@@ -32,15 +32,16 @@ require_once __DIR__ . '/connect.php';
 		];
 		
 		$sql = 'UPDATE produit
-				SET nom = ?, `description` = ?, quantiteSotck = ?, prixUnitaire = ?, idTypeProduit = ?
+				SET nom = ?, `description` = ?, quantiteStock = ?, prixUnitaire = ?, idTypeProduit = ?
 				WHERE idProduit = ?';
 		
 		$statement = $pdo->prepare($sql);
 
 		// execute the UPDATE statment
 		if ($statement->execute($produit)) {
-			echo 'The publisher has been updated successfully!';
+			return true;
 		}
+        return false;
     }
 
     public function delete ($idProduit)
@@ -53,15 +54,16 @@ require_once __DIR__ . '/connect.php';
 		$statement = $pdo->prepare($sql);
 
 		// execute the DELETE statment
-		if ($statement->execute($idProduit)) {
-			echo 'The publisher has been successfully!';
+		if ($statement->execute([$idProduit])) {
+			return true;
 		}
+        return false;
     }
 
     public function read($idProduit = null)
     {
 		global $pdo;
-        if(! empty((int) $idProduit)) {
+        if(empty((int) $idProduit)) {
             $sql = 'SELECT * FROM produit order by nom asc';
             $statement = $pdo->query($sql);
         } else {
