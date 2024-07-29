@@ -10,10 +10,14 @@
         <tr>
         <th scope="col">id</th>
         <th scope="col">Nom</th>
+        <th scope="col">Marque</th>
         <th scope="col">Description</th>
         <th scope="col">Quantite en stock</th>
         <th scope="col">Prix unitaire</th>
         <th scope="col">Type</th>
+        <th scope="col">Unite de mesure</th>
+        <th scope="col">1 Paquet</th>
+        <th scope="col">Nom du packet</th>
         
         <th scope="col">action</th>
         </tr>
@@ -26,10 +30,15 @@
                         <tr>
                             <th>".$array['idProduit']."</th>
                             <td>".$array['nom']."</td>
+                            <td>".$array['marque']."</td>
                             <td>".$array['description']."</td>
                             <td>".$array['quantiteStock']."</td>
                             <td>".$array['prixUnitaire']."</td>
                             <td>".$array['idTypeProduit']."</td>
+                            <td>".$array['unite_mesure']."</td>
+                            <td>".$array['package']."</td>
+                            <td>".$array['nom_package']."</td>
+
                             
                             <td class='row'>
                                 <div class='col-1'> </div>
@@ -44,7 +53,7 @@
                             </td>
                         </tr>
                 ";
-                $content_update = add_update_produit(htmlspecialchars($_SERVER['PHP_SELF']), '', $array['nom'], $array['quantiteStock'], $array['description'], $array['prixUnitaire'], 'update', $array['idProduit']);
+                $content_update = add_update_produit(htmlspecialchars($_SERVER['PHP_SELF']), '', $array['nom'], $array['marque'], $array['quantiteStock'], $array['description'], $array['prixUnitaire'], 'update', $array['idProduit'], $array['unite_mesure'], $array['package'], $array['nom_package']);
                 echo modal("delete_".$array['idProduit']."", "Supprimer le produit ".$array['nom']."", "Voulez-vous vraiment supprimer le produit ".$array['nom']." qui a l ID : ".$array['idProduit']."", htmlspecialchars($_SERVER["PHP_SELF"]), 'delete', "delete_".$array['idProduit']."", 'supprimer');
                 echo modal("update_".$array['idProduit']."", 'Modifier le produit', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['idProduit']."", 'modifier', '', false);
                 echo $line;

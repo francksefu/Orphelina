@@ -35,13 +35,17 @@ if ($addorupdate === 'update') {
     if((int) $id) {
         $array = filter_validate_produit("produit_tab.php");
         $nom = $array['nom'];
+        $marque = $array['marque'];
         $description = $array['description'];
         $quantiteStock = $array['quantiteStock'];
         $prixUnitaire = $array['prixUnitaire'];
         $idTypeProduit = 1;
+        $unite_mesure = $array['unite_mesure'];
+        $package = $array['package'];
+        $nom_package = $array['nom_package'];
         $produit = new Produit();
         if ($nom && $idTypeProduit) {
-            if ($produit->update($nom, $description, $quantiteStock, $prixUnitaire, 1, $id)) {
+            if ($produit->update($nom, $marque, $description, $quantiteStock, $prixUnitaire, 1,$unite_mesure, $package, $nom_package, $id)) {
                 redirect_with_message('Modification fait avec success !', FLASH_SUCCESS, 'produit', "produit_tab.php");
             }
         } else {

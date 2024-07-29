@@ -1,5 +1,5 @@
 <?php
-function add_update_produit($urlpost, $flash = '', $nom = '', $quantiteStock = '' , $description = '', $prixUnitaire = '', $addorupdate = 'add', $id = '') {
+function add_update_produit($urlpost, $flash = '', $nom = '', $marque = '', $quantiteStock = '' , $description = '', $prixUnitaire = '', $addorupdate = 'add', $id = '', $unite_mesure = '', $package = '', $nom_package = '') {
     $content = "
     $flash
 <h2 class='text-secondary m-2 text-center'>Produit</h2>
@@ -9,6 +9,10 @@ function add_update_produit($urlpost, $flash = '', $nom = '', $quantiteStock = '
                 <div class='input-group mb-3'>
                     <span class='input-group-text' id='basic-addon1'>Nom </span>
                     <input type='text' name='nom' class='form-control' value='$nom' placeholder='Ecrivez le nom du produit ici' aria-label='Username' aria-describedby='basic-addon1'>
+                </div>
+                <div class='input-group mb-3'>
+                    <span class='input-group-text' id='basic-addon1'>Marque </span>
+                    <input type='text' name='marque' class='form-control' value='$marque' placeholder='Ecrivez la marque du produit ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <div class='input-group mb-3'>
                     <span class='input-group-text' id='basic-addon1'>Quantite en stock</span>
@@ -29,9 +33,28 @@ function add_update_produit($urlpost, $flash = '', $nom = '', $quantiteStock = '
         <div class='col-md-6'>
             <div class='input-group mb-3'>
                 <span class='input-group-text'>Description</span>
-                <textarea required name='description'  class='form-control' placeholder='Ecrivez le motif ici ...' aria-label='With textarea'>$description</textarea>
+                <textarea name='description'  class='form-control' placeholder='Ecrivez le motif ici ...' aria-label='With textarea'>$description</textarea>
             </div>
             <small class='text-danger'></small>
+        </div>
+        <div class='col-md-6'>
+            <div class='input-group mb-3'>
+                <span class='input-group-text' id='basic-addon1'>Unite de mesure </span>
+                <input required type='text' name='unite_mesure' class='form-control' value='$unite_mesure' placeholder='Ecrivez l unité de mesure ici... (ex: Kg)' aria-label='Username' aria-describedby='basic-addon1'>
+            </div>
+        </div>
+        <div class='col-md-6'>
+            <div class='input-group mb-3'>
+                <span class='input-group-text'>Paquet</span>
+                <input type='float' value='$package' name='package' step='0.001' placeholder='Ecrivez le paquet contient combien d unite de mesure ici' class='form-control' aria-label='Amount (to the nearest dollar)'>
+            </div>
+            <small class='text-danger'></small>
+        </div>
+        <div class='col-md-6'>
+            <div class='input-group mb-3'>
+                <span class='input-group-text' id='basic-addon1'>Nom du package </span>
+                <input type='text' name='nom_package' class='form-control' value='$nom_package' placeholder='Ecrivez le nom du packet ici... (ex: sac de 140Kg)' aria-label='Username' aria-describedby='basic-addon1'>
+            </div>
         </div>
 
         <div class='col-md-6'>
@@ -79,10 +102,27 @@ function filter_validate_produit( $url = 'produit.php')
     $idTypeProduit = filter_input(INPUT_POST, 'idTypeProduit', FILTER_SANITIZE_SPECIAL_CHARS);
     $input['idTypeProduit'] = $idTypeProduit;
 
+    $marque = filter_input(INPUT_POST, 'marque', FILTER_SANITIZE_SPECIAL_CHARS);
+    $input['marque'] = $marque;
+
     /*if($idTypeProduit === false) {
         $errors['idTypeProduit'] = 'Le type du produit doit etre present';
         redirect_with_message('Le type du produit doit etre present', FLASH_ERROR, 'produit', $url);
     }*/
+
+    $unite_mesure = filter_input(INPUT_POST, 'unite_mesure', FILTER_SANITIZE_SPECIAL_CHARS);
+    $input['unite_mesure'] = $unite_mesure;
+
+    if($unite_mesure === false) {
+        $errors['unite_mesure'] = 'L unite de mesure doit etre presente';
+        redirect_with_message('L unite de mesure doit etre presente', FLASH_ERROR, 'produit', $url);
+    }
+
+    $package = filter_input(INPUT_POST, 'package', FILTER_SANITIZE_SPECIAL_CHARS);
+    $input['package'] = $package;
+
+    $nom_package = filter_input(INPUT_POST, 'nom_package', FILTER_SANITIZE_SPECIAL_CHARS);
+    $input['nom_package'] = $nom_package;
     
-    return ['nom' => $nom, 'description' => $description, 'quantiteStock' => $quantiteStock, 'prixUnitaire' => $prixUnitaire, 'idTypeProduit' => $idTypeProduit];
+    return ['nom' => $nom, 'marque' => $marque, 'description' => $description, 'quantiteStock' => $quantiteStock, 'prixUnitaire' => $prixUnitaire, 'idTypeProduit' => $idTypeProduit, 'unite_mesure' => $unite_mesure, 'package' => $package, 'nom_package' => $nom_package];
 }

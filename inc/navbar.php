@@ -26,7 +26,12 @@
             <li><a class="dropdown-item" href="produit.php">Ajouter un produit</a></li>
             <li><a class="dropdown-item" href="produit_tab.php">Voir les produits</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="sortieentreedepot.php?q=entrée">Ajouter une entrée dans le depot</a></li>
+            <li><a class="dropdown-item" href="sortieentreedepot.php?q=sortie">Ajouter une sortie dans le depot</a></li>
+
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="sortieentreedepot_tab.php?q=entrée">Voir les entrées dans le depot</a></li>
+            <li><a class="dropdown-item" href="sortieentreedepot_tab.php?q=sortie">Voir les sorties dans le depot</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

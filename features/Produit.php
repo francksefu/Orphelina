@@ -10,29 +10,29 @@ require_once __DIR__ . '/connect.php';
       $this->produit = 'produit';
     }
 
-    public function insert ($nom, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit)
+    public function insert ($nom, $marque , $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $unite_mesure, $package = null, $nom_package = null)
     {
       global $pdo;
-	  $sql = 'INSERT INTO produit(nom, `description`, quantiteStock, prixUnitaire, idTypeProduit) VALUES(?,?,?,?,?)';
+	  $sql = 'INSERT INTO produit(nom, marque, `description`, quantiteStock, prixUnitaire, idTypeProduit, unite_mesure, package, nom_package) VALUES(?,?,?,?,?,?,?,?,?)';
 
 	  $statement = $pdo->prepare($sql);
 	  
 	  $statement->execute([
-		$nom, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit
+		$nom, $marque, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $unite_mesure, $package, $nom_package
 	  ]);
 
 	  return $pdo->lastInsertId();
     }
 
-    public function update ($nom, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $idProduit)
+    public function update ($nom, $marque, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $unite_mesure, $package, $nom_package, $idProduit)
     {
 		global $pdo;
 		$produit = [
-			$nom, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $idProduit
+			$nom, $marque, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $unite_mesure, $package, $nom_package, $idProduit
 		];
 		
 		$sql = 'UPDATE produit
-				SET nom = ?, `description` = ?, quantiteStock = ?, prixUnitaire = ?, idTypeProduit = ?
+				SET nom = ?, marque = ?, `description` = ?, quantiteStock = ?, prixUnitaire = ?, idTypeProduit = ?, unite_mesure = ?, package = ?, nom_package = ?
 				WHERE idProduit = ?';
 		
 		$statement = $pdo->prepare($sql);
@@ -82,13 +82,13 @@ require_once __DIR__ . '/connect.php';
         global $pdo;
         $ancienneQuantiteStock = $this->read($idProduit)[0]['quantiteStock'];
         $sql = 'UPDATE produit
-				SET quantiteSotck = ?
+				SET quantiteStock = ?
 				WHERE idProduit = ?';
 		
 		$statement = $pdo->prepare($sql);
-        if ($type = 'delete') {
+        if ($type == 'delete') {
             $newQuantity = $ancienneQuantiteStock - $quantiteEntree;
-        } elseif($type = 'add') {
+        } elseif($type =='add') {
             $newQuantity = $ancienneQuantiteStock + $quantiteEntree;
         }
 
