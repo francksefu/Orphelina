@@ -155,3 +155,13 @@ function modal($id, $modaltitle, $modalbody, $linkaction, $namepost, $valuepost,
     return $content;
 }
 
+function calculateAge($birthDate) {
+    if (isset($birthDate)) {
+        $d1=strtotime($birthDate);
+        $d2= round(((time() - $d1)/(60 * 60 * 24 * 30 * 12)), 1);
+        // Convertir la date de naissance en objet DateTime
+        return $d2;
+    }
+    return 0;
+}
+
