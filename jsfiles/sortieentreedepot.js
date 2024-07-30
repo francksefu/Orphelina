@@ -67,7 +67,26 @@ $(document).ready(function(){
             });
         });
     });
-    
+
   });
+
+  $(document).ready(function() {
+    var age = 'i';
+    $('#age_number').on('change', function() {
+         age = $('#age_precis').val() +' '+ $(this).val() +' '+ $('#age_time').val();
+        $('#age').val(age);
+    });
+
+    $('#age_time').on('change', function() {
+         age = $('#age_precis').val() +' '+ $('#age_number').val() +' '+ $(this).val();
+        $('#age').val(age);
+    });
+
+    $('#age_precis').on('change', function() {
+         age = $(this).val() +' '+ $('#age_number').val() +' '+ $('#age_time').val();
+        $('#age').val(age);
+    });
+  })
+  
 
 

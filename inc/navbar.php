@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Orphelina</a>
@@ -44,6 +45,18 @@
             
           </ul>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Enfant
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="enfant.php">Ajouter un enfant</a></li>
+            <li><a class="dropdown-item" href="enfant_tab.php">Voir les enfant</a></li>
+            
+          </ul>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>

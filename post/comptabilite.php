@@ -1,5 +1,4 @@
 <?php
-    
     $array = filter_validate_comptabilite();
     $type = $array['type'];
     $montant = $array['montant'];
@@ -27,8 +26,5 @@
         redirect_with_message('Mauvais type !', FLASH_ERROR, 'comptabilite', "comptabilite.php?q=$type");
     }
 
-    header("Location: comptabilite.php?q=$type", true, 303);
-    exit;
-    
     
 
