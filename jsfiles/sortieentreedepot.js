@@ -87,6 +87,16 @@ $(document).ready(function(){
         $('#age').val(age);
     });
   })
+
+  $(document).ready(function() {
+    $('#ajouter_album').on('click', function() {
+        $('.type').val('album');
+    });
+
+    $('#ajouter_dossier').on('click', function() {
+        $('.type').val('dossier');
+    })
+  })
   
 
 

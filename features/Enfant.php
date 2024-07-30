@@ -60,12 +60,17 @@ require_once __DIR__ . '/connect.php';
         return false;
     }
 
-    public function read()
+    public function read($idEnfant = null)
     {
 		global $pdo;
-		$sql = 'SELECT * FROM enfant ORDER BY noms_postnoms DESC';
-
-		$statement = $pdo->query($sql);
+        if(empty((int) $idEnfant)) {
+            $sql = 'SELECT * FROM enfant order by noms_postnoms asc';
+            $statement = $pdo->query($sql);
+        } else {
+            $sql = 'SELECT * FROM enfant WHERE idEnfant = ? order by noms_postnoms asc';
+            $statement = $pdo->prepare($sql);
+            $statement->execute([$idEnfant]);
+        }
 
 		// get all publishers
 		return $statement->fetchAll(PDO::FETCH_ASSOC);

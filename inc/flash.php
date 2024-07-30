@@ -120,13 +120,14 @@ function redirect_with_message(string $message, string $type=FLASH_ERROR, string
     exit;
 }
 
-function modal($id, $modaltitle, $modalbody, $linkaction, $namepost, $valuepost, $buttonname, $type='no', $delete = true)
+function modal($id, $modaltitle, $modalbody, $linkaction, $namepost, $valuepost, $buttonname, $type='no', $delete = true, $filepathtodelete = '')
 {
     if ($delete) {
         $type_modal = "
         <form method='post' action='$linkaction' class='col-5'>
             <input type='hidden' name='$namepost' value='$valuepost' >
             <input type='hidden' name='type' value='$type' >
+            <input type='hidden' name='filepathtodelete' value='$filepathtodelete' >
             <input type='submit' class='btn btn-primary' value='$buttonname'>
         </form>
     ";

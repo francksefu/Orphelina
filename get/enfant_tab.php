@@ -32,7 +32,7 @@
                 $line = "
                         <tr>
                             <th>".$array['idEnfant']."</th>
-                            <td>".$array['noms_postnoms']." <br> <a href='#' class='btn btn-success m-2'> Voir</a> </td>
+                            <td>".$array['noms_postnoms']." <br> <a href='voirenfant.php?q=".$array['idEnfant']."' class='btn btn-success m-2'> Voir</a> </td>
                             <td>".$array['sexe']."</td>
                             <td>".$array['dateArrivee']."</td>
                             <td>".$array['age']."</td>
