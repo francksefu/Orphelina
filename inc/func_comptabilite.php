@@ -1,5 +1,14 @@
 <?php
-function add_update_comptabilite($urlpost, $type, $date , $value_montant = '', $value_motif = '', $value_Nfacture = '', $flash = '', $addorupdate = 'add', $id = '') {
+function add_update_comptabilite($urlpost, $type, $date , $value_montant = '', $value_motif = '', $value_Nfacture = '', $idTypeTrie = '', $flash = '', $addorupdate = 'add', $id = '') {
+    global $array_of_type_trie;
+    $type_trie = '';
+    $selected = '';
+    foreach($array_of_type_trie as $typetrie) {
+        if(! empty($idTypeTrie)) {
+            $selected = $idTypeTrie == $typetrie['idTypeTrie'] ? 'selected' : '';
+        }
+        $type_trie .= "<option value='".$typetrie['idTypeTrie']."' $selected>".$typetrie['name']."</option>";
+    }
     $content = "
     $flash
 <h2 class='text-secondary m-2 text-center'>$type</h2>
@@ -38,11 +47,8 @@ function add_update_comptabilite($urlpost, $type, $date , $value_montant = '', $
         <div class='col-md-6'>
             <div class='input-group mb-3'>
                 <label class='input-group-text' for='inputGroupSelect01'>Type</label>
-                <select class='form-select' id='inputGroupSelect01'>
-                    <option selected>Choose...</option>
-                    <option value='1'>One</option>
-                    <option value='2'>Two</option>
-                    <option value='3'>Three</option>
+                <select class='form-select' name='idTypeTrie' value='$idTypeTrie' id='inputGroupSelect01'>
+                    $type_trie
                 </select>
             </div>
             <small class='text-danger'></small>
@@ -86,6 +92,7 @@ function filter_validate_comptabilite( $url = 'comptabilite.php?q=')
 
     $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_SPECIAL_CHARS);
     $input['date'] = $date;
+    $idTypeTrie = filter_input(INPUT_POST, 'idTypeTrie', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if($date === false) {
         $errors['date'] = 'La date doit etre presente';
@@ -101,6 +108,6 @@ function filter_validate_comptabilite( $url = 'comptabilite.php?q=')
             $Nfacture = implode($matches[0]);
         }
     }
-    return ['type' => $type, 'montant' => $montant, 'motif' => $motif, 'date' => $date, 'Nfacture' => $Nfacture];
+    return ['type' => $type, 'montant' => $montant, 'motif' => $motif, 'date' => $date, 'Nfacture' => $Nfacture, 'idTypeTrie' => $idTypeTrie];
 
 }

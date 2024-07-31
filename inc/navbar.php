@@ -57,6 +57,17 @@
           </ul>
         </li>
 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Parametres
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="type_trie.php">Ajouter un type de trie pour la comptabilité</a></li>
+            <li><a class="dropdown-item" href="type_trie_tab.php">Voir les types de trie pour la comptabilité</a></li>
+            
+          </ul>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>

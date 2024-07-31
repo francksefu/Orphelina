@@ -60,15 +60,26 @@
 		return false;
     }
 
+	public function read_by_type_trie($idTypeTrie)
+	{
+		global $pdo;
+        $sql = 'SELECT * FROM comptabilite WHERE idTypeTrie = ? order by idTypeTrie desc';
+            $statement = $pdo->prepare($sql);
+            $statement->execute([$idTypeTrie]);
+
+		// get all publishers
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
+	}
+
     public function read($type = null)
     {
 		global $pdo;
-		$sql = 'SELECT * FROM comptabilite ORDER BY idComptabilite DESC LIMIT 800';
+		$sql = 'SELECT * FROM comptabilite, type_trie WHERE comptabilite.idTypeTrie = type_trie.idTypeTrie  ORDER BY idComptabilite DESC LIMIT 800';
 		if ($type == 'entrée') {
-			$sql = "SELECT * FROM comptabilite WHERE typeComptabilite = 'entrée' ORDER BY idComptabilite DESC LIMIT 800";
+			$sql = "SELECT * FROM comptabilite, type_trie WHERE typeComptabilite = 'entrée' and (comptabilite.idTypeTrie = type_trie.idTypeTrie) ORDER BY idComptabilite DESC LIMIT 800";
 		}
 		if ($type == 'sortie') {
-			$sql = "SELECT * FROM comptabilite WHERE typeComptabilite = 'sortie' ORDER BY idComptabilite DESC LIMIT 800";
+			$sql = "SELECT * FROM comptabilite, type_trie WHERE typeComptabilite = 'sortie' and (comptabilite.idTypeTrie = type_trie.idTypeTrie) ORDER BY idComptabilite DESC LIMIT 800";
 		}
 
 		$statement = $pdo->query($sql);

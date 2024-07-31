@@ -5,10 +5,11 @@
     $motif = $array['motif'];
     $date = $array['date'];
     $Nfacture = $array['Nfacture'];
+    $idTypeTrie = $array['idTypeTrie'];
     $comptabilite = new Comptabilite();
     if ($type === 'entrée') {
         if ($montant && $motif && $date && $Nfacture) {
-            if ($comptabilite->insert($montant, $motif, $date, $Nfacture, $type, 1)) {
+            if ($comptabilite->insert($montant, $motif, $date, $Nfacture, $type, $idTypeTrie)) {
                 redirect_with_message('Insertion fait avec success !', FLASH_SUCCESS, 'comptabilite', "comptabilite.php?q=$type");
             }
         } else {
@@ -16,7 +17,7 @@
         }
     } elseif($type === 'sortie') {
         if ($montant && $motif && $date && $Nfacture) {
-            if ($comptabilite->insert($montant, $motif, $date, $Nfacture, 'sortie', 1)) {
+            if ($comptabilite->insert($montant, $motif, $date, $Nfacture, 'sortie', $idTypeTrie)) {
                 redirect_with_message('Insertion fait avec success !', FLASH_SUCCESS, 'comptabilite', "comptabilite.php?q=$type");
             }
         } else {

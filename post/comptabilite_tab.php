@@ -46,9 +46,10 @@ if ($addorupdate === 'update') {
         $motif = $array['motif'];
         $date = $array['date'];
         $Nfacture = $array['Nfacture'];
+        $idTypeTrie = $array['idTypeTrie'];
         $comptabilite = new Comptabilite();
         if ($montant && $motif && $date && $Nfacture) {
-            if ($comptabilite->update($montant, $motif, $date, $Nfacture, 1, $id)) {
+            if ($comptabilite->update($montant, $motif, $date, $Nfacture, $idTypeTrie, $id)) {
                 redirect_with_message('Modification fait avec success !', FLASH_SUCCESS, 'comptabilite', "comptabilite_tab.php?q=$type");
             }
         } else {

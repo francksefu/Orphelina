@@ -5,6 +5,7 @@
         <div class="col-md-7"></div>
         <div class="col-md-4"><small>total : <?php echo $total ?> </small></div>
     </div>
+<div class='horizontal'>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -13,8 +14,8 @@
         <th scope="col">Marque</th>
         <th scope="col">Description</th>
         <th scope="col">Quantite en stock</th>
+        <th scope="col">Quantite en stock detaillé</th>
         <th scope="col">Prix unitaire</th>
-        <th scope="col">Type</th>
         <th scope="col">Unite de mesure</th>
         <th scope="col">1 Paquet</th>
         <th scope="col">Nom du packet</th>
@@ -33,20 +34,20 @@
                             <td>".$array['marque']."</td>
                             <td>".$array['description']."</td>
                             <td>".$array['quantiteStock']."</td>
+                            <td>".$array['quantiteStock']." ".$array['unite_mesure']." ou <br> ".number_format($array['quantiteStock']/$array['package'], 1)."  ".$array['nom_package']." </td>
                             <td>".$array['prixUnitaire']."</td>
-                            <td>".$array['idTypeProduit']."</td>
                             <td>".$array['unite_mesure']."</td>
                             <td>".$array['package']."</td>
                             <td>".$array['nom_package']."</td>
 
                             
                             <td class='row'>
-                                <div class='col-1'> </div>
-                                <button type='button' class='btn btn-danger col-5 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idProduit']."'>
+                            
+                                <button type='button' class='btn btn-danger col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idProduit']."'>
                                     Supprimer
                                 </button>
 
-                                <button type='button' class='btn btn-warning col-5 m-1' data-bs-toggle='modal' data-bs-target='#update_".$array['idProduit']."'>
+                                <button type='button' class='btn btn-warning col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#update_".$array['idProduit']."'>
                                     Modifier
                                 </button>
                                 
@@ -62,6 +63,7 @@
         
     </tbody>
 </table>
+</div>
 <!-- Button trigger modal -->
 
 

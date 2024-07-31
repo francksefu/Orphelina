@@ -3,10 +3,13 @@
     require __DIR__.'/../inc/flash.php';
     require __DIR__.'/../inc/func_comptabilite.php';
     require_once __DIR__.'/../features/Comptabilite.php';
+    require_once __DIR__.'/../features/TypeTrie.php';
     require __DIR__.'/../inc/header.php';
     $errors = [];
     $inputs = [];
     $valid = false;
+    $type_trie = new TypeTrie();
+    $array_of_type_trie = $type_trie->read($_GET['q']);
     $comptabilite = new Comptabilite();
     $default_array = $comptabilite->read($_GET['q']);
     $total = array_reduce(

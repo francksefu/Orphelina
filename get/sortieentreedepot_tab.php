@@ -21,6 +21,7 @@ foreach($default_array as $array) {
                 ";
     }
     $contenu .= "
+    <div class='mt-1'>
         <div class='row'>
         <div class='col-md-2'> </div>
         <div class='border border-secondary p-3 col-md-8'>
@@ -61,7 +62,7 @@ foreach($default_array as $array) {
         </table>
         <div class='col-md-2'> </div>
         </div>
-        ";
+        </div>";
         $content_update = add_update_sortieentree(htmlspecialchars($_SERVER['PHP_SELF']), $_GET['q'], $array['Date'], $array_of_product, $array['note'], json_encode($array['data_content']), $array['Nfacture'], '', 'update');
         echo modal("delete_".$array['Nfacture']."", 'Supprimer element', "Voulez-vous vraiment supprimer la facture d ".$_GET['q']." qui a le numero : ".$array['Nfacture']."", htmlspecialchars($_SERVER["PHP_SELF"]).'?q='.$_GET['q'], 'delete', "delete_".$array['Nfacture']."", 'supprimer', $_GET['q']);
         echo modal("update_".$array['Nfacture']."", 'Modifier element', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['Nfacture']."", 'modifier', $_GET['q'], false);

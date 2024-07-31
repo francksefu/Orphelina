@@ -43,8 +43,11 @@ require_once __DIR__ . '/connect.php';
     public function update ($Nfacture, $array)
     {
 		global $pdo;
-		$this->delete($Nfacture);
-        $this->insert_multiple($array);
+        if($this->delete($Nfacture)) {
+            $this->insert_multiple($array);
+            return true;
+        }
+		return false;
     }
 
     public function delete ($Nfacture)

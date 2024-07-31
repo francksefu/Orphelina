@@ -1,5 +1,5 @@
 <?php
-$type = $_GET['q'];
+$type = $delete = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (isset($_POST['delete'])) {
     $delete = filter_input(INPUT_POST, 'delete', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -23,30 +23,22 @@ if (isset($_POST['delete'])) {
 
     if($addorupdate === false) {
         $errors['addorupdate'] = 'Impossible de modifier';
-        redirect_with_message('Impossible de modifier !', FLASH_ERROR, 'comptabilite', "comptabilite_tab.php?q=$type");
+        redirect_with_message('Impossible de modifier !', FLASH_ERROR, 'sortieentreedepot', "sortieentreedepot_tab.php?q=$type");
     }
 if ($addorupdate === 'update') {
-    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
-    $input['id'] = $id;
-
-    if($id === false) {
-        $errors['id'] = 'Impossible de modifier';
-        redirect_with_message('Impossible de modifier', FLASH_ERROR, 'comptabilite', "comptabilite_tab.php?q=$type");
-    } 
-    if((int) $id) {
-        $array = filter_validate_comptabilite("comptabilite_tab.php?q=");
-        $type = $array['type'];
-        $montant = $array['montant'];
-        $motif = $array['motif'];
-        $date = $array['date'];
-        $Nfacture = $array['Nfacture'];
-        $comptabilite = new Comptabilite();
-        if ($montant && $motif && $date && $Nfacture) {
-            if ($comptabilite->update($montant, $motif, $date, $Nfacture, 1, $id)) {
-                redirect_with_message('Modification fait avec success !', FLASH_SUCCESS, 'comptabilite', "comptabilite_tab.php?q=$type");
+    
+    $array = filter_validate_sortieentreedepot("sortieentreedepot_tab.php?q=");
+    $Nfacture = $array[0]['Nfacture'];
+    $type = $array[0]['type'];
+    if($Nfacture) {
+        
+        $sortieentreedepot = new SortieEntreedepot();
+        if ($Nfacture && $type) {
+            if ($sortieentreedepot->update($Nfacture, $array)) {
+                redirect_with_message('Modification fait avec success !', FLASH_SUCCESS, 'sortieentreedepot', "sortieentreedepot_tab.php?q=$type");
             }
         } else {
-            redirect_with_message('Error, la modification n a pas ete faite', FLASH_ERROR, 'comptabilite', "comptabilite.php_tab?q=$type");
+            redirect_with_message('Error, la modification n a pas ete faite', FLASH_ERROR, 'sortieentreedepot', "sortieentreedepot_tab.php?q=$type");
         }
     }
     

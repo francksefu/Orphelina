@@ -1,6 +1,23 @@
 <?php
 function add_update_sortieentree($urlpost, $type, $date ,$array_of_product , $value_note = '', $array_of_product_and_quantity = '', $value_Nfacture = '', $flash = '', $addorupdate = 'add', $id = '') {
+    $line_quantity = '';
+    
+    if(! empty($array_of_product_and_quantity)) {
+        $arr_p_q = json_decode($array_of_product_and_quantity, true);
+        foreach($arr_p_q as $product_quantity) {
+            foreach($array_of_product as $product) {
+                if($product_quantity['idProduit'] == $product['idProduit']) {
+                    $line_quantity .= "<tr class='line_show'><td>".$product_quantity['idProduit']."</td><td>".$product['nom']."</td><td>" .$product_quantity['quantite']. "</td><td> <a href='#' class='btn btn-danger supprime'> Supprimer </a> </td></tr>";
+                    break;
+                }
+            }
+        }
+    }
     $line = '';
+    $array_of_product_in_json = json_encode($array_of_product);
+    $width = $addorupdate !== 'add' ? 10 : 6; 
+    $width_5 = $addorupdate !== 'add' ? 10 : 5;
+    $width_3 = $addorupdate !== 'add' ? 8 : 3;
     foreach($array_of_product as $array) {
         $line .= "
                 <tr class='line_to_take'>
@@ -16,8 +33,8 @@ function add_update_sortieentree($urlpost, $type, $date ,$array_of_product , $va
 <h2 class='text-secondary m-2 text-center'>Faite une $type dans le depot</h2>
     <form method='post' action='$urlpost' class='container-fluid'>
         <div class='row mb-3'>
-            <div class='col-md-6'></div>
-            <div class='col-md-6'>
+            <div class='col-md-$width'></div>
+            <div class='col-md-$width'>
                 <div class='input-group mb-3'>
                     <span class='input-group-text' id='basic-addon1'>N facture </span>
                     <input type='text' class='form-control' value='$value_Nfacture' readonly placeholder='number of facture here : generete its self' aria-label='Username' aria-describedby='basic-addon1'>
@@ -30,7 +47,7 @@ function add_update_sortieentree($urlpost, $type, $date ,$array_of_product , $va
                 
             </div>
         </div>
-        <div class='col-md-6'>
+        <div class='col-md-$width'>
             <div class='input-group mb-3'>
                 <span class='input-group-text'>Note</span>
                 <textarea name='note'  class='form-control' placeholder='Ecrivez une petite note sur la transaction du depot ici ...' aria-label='With textarea'>$value_note</textarea>
@@ -38,7 +55,7 @@ function add_update_sortieentree($urlpost, $type, $date ,$array_of_product , $va
             <small class='text-danger'></small>
         </div>
         <div class='row'>
-            <div class='col-md-5'>
+            <div class='col-md-$width_5'>
                 <div class='input-group mb-3'>
                     <span class='input-group-text' id='basic-addon1'>Produit</span>
                     <input type='hidden' id='contenu_produit'>
@@ -62,7 +79,7 @@ function add_update_sortieentree($urlpost, $type, $date ,$array_of_product , $va
                 </div>
             </div>
                 
-            <div class='col-md-3'>
+            <div class='col-md-$width_3'>
                 <div class='input-group mb-3'>
                     <span class='input-group-text'>Quantite</span>
                     <input type='float' id='quantite'  name='quantite' step='0.001' placeholder='Ecrivez la quantite $type  dans le depot ici' class='form-control' aria-label='Amount (to the nearest dollar)'>
@@ -71,7 +88,7 @@ function add_update_sortieentree($urlpost, $type, $date ,$array_of_product , $va
                 <small class='text-danger' id='info-quantity'></small>
             </div>
              <a id='button' class='btn btn-success col-md-2 m-3' href='#'> Ajouter dans la liste</a>
-            <input type='text' id='array_of_product_and_quantity' name='array_of_product_and_quantity' value='$array_of_product_and_quantity'>
+            <input type='hidden' id='array_of_product_and_quantity' name='array_of_product_and_quantity' value='$array_of_product_and_quantity'>
         </div>
         <table class='table table-bordered' id='generale-table' >
             <thead>
@@ -83,12 +100,13 @@ function add_update_sortieentree($urlpost, $type, $date ,$array_of_product , $va
                 </tr>
             </thead>
             <tbody id='tbody'>
+                $line_quantity
             </tbody>
 
         </table>
-        <input type='hidden' id='array_of_product' name='array_of_product' >
-        <input type='hidden' name='type' value='$type'>
-        <input type='hidden' name='addorupdate' value='$addorupdate'>
+        <input type='hidden' id='array_of_product' name='array_of_product' value='$array_of_product_in_json' >
+        <input type='hidden' name='type' value='".$_GET['q']."'>
+        <input type='hidden' name='addorupdate' value='$addorupdate' id='addorupdate'>
         <input type='hidden' name='id' value='$id'>
         <button type='submit' class='btn btn-primary'> Soumettre une $type </button>
     </form>";
@@ -135,6 +153,7 @@ function filter_validate_sortieentreedepot( $url = 'sortieentreedepot.php?q=')
         $errors['date'] = 'La date doit etre presente';
         redirect_with_message('La date doit etre presente', FLASH_ERROR, 'sortieentreedepot', $url);
     }
+    $Nfacture = $array_of_product_and_quantity[0]['Nfacture'];
     if (! empty($Nfacture)) {
 
     } else {
@@ -148,8 +167,8 @@ function filter_validate_sortieentreedepot( $url = 'sortieentreedepot.php?q=')
     $produit_et_quantite = [];
     
     foreach($array_of_product_and_quantity as $arr) {
-        if((int)$arr['id'] && (int)$arr['quantite']) {
-            $produit_et_quantite[] = ['idProduit' => $arr['id'], 'note' => $note, 'quantite' => $arr['quantite'], 'date' => $date, 'Nfacture' => $Nfacture, 'type' => $type];
+        if((int)$arr['idProduit'] && (float)$arr['quantite']) {
+            $produit_et_quantite[] = ['idProduit' => $arr['idProduit'], 'note' => $note, 'quantite' => $arr['quantite'], 'date' => $date, 'Nfacture' => $Nfacture, 'type' => $type];
         } else {
             redirect_with_message('Erreur : Un des produit contient des erreurs trouvez lors de l essaie de l enregistrement', FLASH_ERROR, 'sortieentreedepot', $url);
         }

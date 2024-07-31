@@ -5,6 +5,7 @@
         <div class="col-md-7"></div>
         <div class="col-md-4"><small>total : <?php echo $total ?> </small></div>
     </div>
+<div class='horizontal'>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -41,11 +42,11 @@
                             
                             <td class='row'>
                                 <div class='col-1'> </div>
-                                <button type='button' class='btn btn-danger col-5 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idEmployes']."'>
+                                <button type='button' class='btn btn-danger col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idEmployes']."'>
                                     Supprimer
                                 </button>
 
-                                <button type='button' class='btn btn-warning col-5 m-1' data-bs-toggle='modal' data-bs-target='#update_".$array['idEmployes']."'>
+                                <button type='button' class='btn btn-warning col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#update_".$array['idEmployes']."'>
                                     Modifier
                                 </button>
                                 
@@ -61,6 +62,7 @@
         
     </tbody>
 </table>
+</div>
 <!-- Button trigger modal -->
 
 

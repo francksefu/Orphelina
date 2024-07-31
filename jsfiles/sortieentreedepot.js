@@ -23,7 +23,7 @@ $(document).ready(function(){
             let tab = JSON.parse($('#contenu_produit').val());
             let line = "<tr class='line_show'><td>"+tab['id']+"</td><td>"+tab['nom']+"</td><td>" + $('#quantite').val() + ' ' +tab['unite_mesure']+ "</td><td> <a href='#' class='btn btn-danger supprime'> Supprimer </a> </td></tr>";
             $('#tbody').append(line);
-            let array_product_quantity_to_insert = {id: tab['id'], quantite: $('#quantite').val()}
+            let array_product_quantity_to_insert = {idProduit: tab['id'], quantite: $('#quantite').val()}
             let arr = [];
             if($('#array_of_product_and_quantity').val() === '') {
                 arr = [];
@@ -67,6 +67,21 @@ $(document).ready(function(){
             });
         });
     });
+    //update
+    /*if ($('#addorupdate').val() == 'update') {
+        let line_update = '';
+        let arr_of_update = JSON.parse($('#array_of_product_and_quantity').val());
+        let arr_of_product = JSON.parse($('#array_of_product').val());
+        for(let i = 0; i < arr_of_update.length; i ++) {
+            for(let j = 0; j < arr_of_product.length; j++) {
+                if(arr_of_update[i]['idProduit'] == arr_of_product[j]['idProduit']) {
+                    line_update += "<tr class='line_show'><td>"+arr_of_update[i]['idProduit']+"</td><td>"+arr_of_product[j]['nom']+"</td><td>" + arr_of_update[i]['idProduit'] + ' ' +arr_of_product[j]['nom']+ "</td><td> <a href='#' class='btn btn-danger supprime'> Supprimer </a> </td></tr>";
+                    break;
+                }
+            }
+        }
+        $('#tbody').append(line_update);
+    }*/
 
   });
 
