@@ -5,6 +5,7 @@
         <div class="col-md-7"></div>
         <div class="col-md-4"><small>total : <?php echo $total ?> </small></div>
     </div>
+<div class='horizontal'>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -15,7 +16,7 @@
         <th scope="col">action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id='tbody'>
         <?php
             
             foreach($default_array as $array) {
@@ -47,6 +48,7 @@
         
     </tbody>
 </table>
+</div>
 <!-- Button trigger modal -->
 
 

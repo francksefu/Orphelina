@@ -33,6 +33,10 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="sortieentreedepot_tab.php?q=entrée">Voir les entrées dans le depot</a></li>
             <li><a class="dropdown-item" href="sortieentreedepot_tab.php?q=sortie">Voir les sorties dans le depot</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="inventaire.php?q=entrée">Voir l inventaire des entrées dans le depot</a></li>
+            <li><a class="dropdown-item" href="inventaire.php?q=sortie">Voir l inventaire des sorties dans le depot</a></li>
+          
           </ul>
         </li>
         <li class="nav-item dropdown">

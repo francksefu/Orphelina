@@ -111,3 +111,58 @@ function filter_validate_comptabilite( $url = 'comptabilite.php?q=')
     return ['type' => $type, 'montant' => $montant, 'motif' => $motif, 'date' => $date, 'Nfacture' => $Nfacture, 'idTypeTrie' => $idTypeTrie];
 
 }
+
+function comptabilite_tab($default_array) {
+    $recherche = recherche_dans_tableau();
+    $line = '';
+    foreach($default_array as $array) {
+        $line .= "
+                <tr>
+                    <th>".$array['idComptabilite']."</th>
+                    <td>".$array['montant']."</td>
+                    <td>".$array['motif']."</td>
+                    <td>".$array['Date']."</td>
+                    <td>".$array['heure']."</td>
+                    <td>".$array['name']."</td>
+                    
+                    <td class='row'>
+                        <div class='col-1'> </div>
+                        <button type='button' class='btn btn-danger col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idComptabilite']."'>
+                            Supprimer
+                        </button>
+
+                        <button type='button' class='btn btn-warning col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#update_".$array['idComptabilite']."'>
+                            Modifier
+                        </button>
+                        
+                    </td>
+                </tr>
+        ";
+        $content_update = add_update_comptabilite(htmlspecialchars($_SERVER['PHP_SELF']), $_GET['q'], $array['Date'], $array['montant'], $array['motif'], $array['Nfacture'], $array['idTypeTrie'], '', 'update', $array['idComptabilite']);
+        $line .= modal("delete_".$array['idComptabilite']."", 'Supprimer element', "Voulez-vous vraiment supprimer l' element qui a l ID : ".$array['idComptabilite']."", htmlspecialchars($_SERVER["PHP_SELF"]).'?q='.$_GET['q'], 'delete', "delete_".$array['idComptabilite']."", 'supprimer', $_GET['q']);
+        $line .= modal("update_".$array['idComptabilite']."", 'Modifier element', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['idComptabilite']."", 'modifier', $_GET['q'], false);
+    }
+    $content = "
+    $recherche
+    <div class='horizontal'>
+<table class='table table-bordered'>
+    <thead>
+        <tr>
+        <th scope='col'>id</th>
+        <th scope='col'>Montant</th>
+        <th scope='col'>Motif</th>
+        <th scope='col'>Date</th>
+        <th scope='col'>Date et heure de l enregistrement</th>
+        <th scope='col'>Type</th>
+        
+        <th scope='col'>action</th>
+        </tr>
+    </thead>
+    <tbody id='tbody'> 
+        $line
+    </tbody>
+</table>
+</div>
+    ";
+    return $content;
+}

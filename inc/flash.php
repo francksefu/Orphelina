@@ -166,3 +166,16 @@ function calculateAge($birthDate) {
     return 0;
 }
 
+function recherche_dans_tableau()
+{
+    $content = "
+        <div class='col-md-6'>
+            <div class='input-group mb-3'>
+                <span class='input-group-text' id='basic-addon1'>Rechercher </span>
+                <input type='text' id='recherche' class='form-control' placeholder='Ecrivez faite la recherche ici ...' aria-label='Username' aria-describedby='basic-addon1'>
+            </div>
+        </div>
+    ";
+    return $content;
+}
+

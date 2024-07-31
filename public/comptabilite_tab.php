@@ -23,5 +23,7 @@
         require __DIR__.'/../get/comptabilite_tab.php';
     } elseif ($request_method === 'POST') {
         require __DIR__.'/../post/comptabilite_tab.php';
+        header('Location: comptabilite_tab.php', true, 303);
+        exit;
     }
     require __DIR__.'/../inc/footer.php';

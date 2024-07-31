@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/connect.php';
+require_once __DIR__ . '/Produit.php';
 
   class SortieEntreeDepot {
     
@@ -111,7 +112,7 @@ require_once __DIR__ . '/connect.php';
 }
 
 
-    public function read($Nfacture = null)
+    public function read($Nfacture = null, $idProduit = null, $type = null)
     {
 		global $pdo;
 		if ($Nfacture) {
@@ -121,7 +122,14 @@ require_once __DIR__ . '/connect.php';
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             }
             return false;
-		} else {
+		} elseif($idProduit && $type) {
+            $sql = 'SELECT * FROM entree_sortie_depot WHERE (idProduit = ? and `type` = ?)';
+            $statement = $pdo->prepare($sql);
+            if ($statement->execute([$idProduit, $type])) {
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+            }
+            return false;
+        } else {
             $sql = 'SELECT * FROM entree_sortie_depot ORDER BY idSortieEntree DESC LIMIT 800';
             $statement = $pdo->query($sql);
         }
@@ -156,4 +164,25 @@ require_once __DIR__ . '/connect.php';
 		// Fetch all results
 		return $stmt->fetchAll();
 	}
+
+    public function read_inventaire_produit($type)
+    {
+        $array_to_return = [];
+        $produit = new Produit();
+        $produits = $produit->read();
+        foreach($produits as $par_produit) {
+            $entree_sortie = $this->read(null, $par_produit['idProduit'], $type);
+            $quantite_total = array_reduce(
+                $entree_sortie,
+                function ($prev, $item) {
+                    return $prev + $item['quantite'];
+                }
+            );
+            if(empty($quantite_total)) {
+                $quantite_total = 0;
+            }
+            $array_to_return[] = ['nom' => $par_produit['nom'], "quantite_total" => $quantite_total, 'quantiteStock' => $par_produit['quantiteStock'], 'unite_mesure' => $par_produit['unite_mesure']];
+        }
+		return $array_to_return;
+    }
   }

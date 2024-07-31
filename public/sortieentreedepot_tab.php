@@ -18,5 +18,7 @@
         require __DIR__.'/../get/sortieentreedepot_tab.php';
     } elseif ($request_method === 'POST') {
         require __DIR__.'/../post/sortieentreedepot_tab.php';
+        header('Location: sortieentreedepot_tab.php', true, 303);
+        exit;
     }
     require __DIR__.'/../inc/footer.php';

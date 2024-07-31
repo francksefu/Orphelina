@@ -15,5 +15,7 @@
         require __DIR__.'/../get/sortieentreedepot.php';
     } elseif ($request_method === 'POST') {
         require __DIR__.'/../post/sortieentreedepot.php';
+        header('Location: sortieentreedepot.php', true, 303);
+        exit;
     }
     require __DIR__.'/../inc/footer.php';
