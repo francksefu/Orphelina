@@ -71,15 +71,39 @@
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-    public function read($type = null)
+    public function read($type = null, $date1 = '', $date2 = '', $type_trie = '')
     {
 		global $pdo;
 		$sql = 'SELECT * FROM comptabilite, type_trie WHERE comptabilite.idTypeTrie = type_trie.idTypeTrie  ORDER BY idComptabilite DESC LIMIT 800';
-		if ($type == 'entrée') {
+		if ($type == 'entrée' &&  empty($date1) && empty ($date2) && empty ($type_trie)) {
 			$sql = "SELECT * FROM comptabilite, type_trie WHERE typeComptabilite = 'entrée' and (comptabilite.idTypeTrie = type_trie.idTypeTrie) ORDER BY idComptabilite DESC LIMIT 800";
 		}
-		if ($type == 'sortie') {
+		if ($type == 'sortie' &&  empty($date1) && empty ($date2) && empty ($type_trie)) {
 			$sql = "SELECT * FROM comptabilite, type_trie WHERE typeComptabilite = 'sortie' and (comptabilite.idTypeTrie = type_trie.idTypeTrie) ORDER BY idComptabilite DESC LIMIT 800";
+		}
+
+		if (! empty($type) && ! empty($date1) && empty ($date2) && empty ($type_trie)) {
+			$sql = "SELECT * FROM comptabilite, type_trie WHERE typeComptabilite = ? and (comptabilite.idTypeTrie = type_trie.idTypeTrie) and (`date` = ?)";
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute([$type, $date1]);
+
+			return $stmt->fetchAll();
+		}
+
+		if (! empty($type) && ! empty($date1) && ! empty ($date2)&& empty ($type_trie)) {
+			$sql = "SELECT * FROM comptabilite, type_trie WHERE typeComptabilite = ? and (comptabilite.idTypeTrie = type_trie.idTypeTrie) and ( `Date` between ? and ?)";
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute([$type, $date1, $date2]);
+
+			return $stmt->fetchAll();
+		}
+
+		if (! empty($type) && ! empty($date1) && empty ($date2)&& ! empty ($type_trie)) {
+			$sql = "SELECT * FROM comptabilite, type_trie WHERE typeComptabilite = ? and (comptabilite.idTypeTrie = type_trie.idTypeTrie) and ( `date` = ? and comptabilite.idTypeTrie = ?)";
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute([$type, $date1, $type_trie]);
+
+			return $stmt->fetchAll();
 		}
 
 		$statement = $pdo->query($sql);

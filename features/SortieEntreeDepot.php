@@ -81,16 +81,29 @@ require_once __DIR__ . '/Produit.php';
 		
     }
 
-    public function read_group_by_facture($type)
+    public function read_group_by_facture($type, $date1 = '', $date2 = '')
 {
     global $pdo;
     $array_to_return = [];
+    if(! empty($type) && empty($date1) && empty($date2)) {
+        $sql_1 = 'SELECT Nfacture FROM entree_sortie_depot WHERE `type` = ? GROUP BY Nfacture ORDER BY Nfacture DESC LIMIT 900';
+        $statement_1 = $pdo->prepare($sql_1);
+        $stmt = $statement_1->execute([$type]);
+    } elseif(! empty($type) && ! empty($date1) && empty($date2)) {
+        $sql_1 = 'SELECT Nfacture FROM entree_sortie_depot WHERE `type` = ? and `date` = ? GROUP BY Nfacture ORDER BY Nfacture DESC ';
+        $statement_1 = $pdo->prepare($sql_1);
+        $stmt = $statement_1->execute([$type, $date1]);
+    } elseif (! empty($type) && ! empty($date1) && ! empty($date2)) {
+        $sql_1 = 'SELECT Nfacture FROM entree_sortie_depot WHERE `type` = ? and `date` between ? and ? GROUP BY Nfacture ORDER BY Nfacture DESC ';
+        $statement_1 = $pdo->prepare($sql_1);
+        $stmt = $statement_1->execute([$type,$date1, $date2]);
+    }
     
-    $sql_1 = 'SELECT Nfacture FROM entree_sortie_depot WHERE `type` = ? GROUP BY Nfacture ORDER BY Nfacture DESC LIMIT 800';
     
-    $statement_1 = $pdo->prepare($sql_1);
     
-    if ($statement_1->execute([$type])) {
+    //$statement_1 = $pdo->prepare($sql_1);
+    
+    if ($stmt) {
         $data_group_by = $statement_1->fetchAll(PDO::FETCH_ASSOC);
         
         foreach ($data_group_by as $data) {
@@ -112,7 +125,7 @@ require_once __DIR__ . '/Produit.php';
 }
 
 
-    public function read($Nfacture = null, $idProduit = null, $type = null)
+    public function read($Nfacture = null, $idProduit = null, $type = null, $date1 = null, $date2 = null)
     {
 		global $pdo;
 		if ($Nfacture) {
@@ -122,10 +135,24 @@ require_once __DIR__ . '/Produit.php';
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             }
             return false;
-		} elseif($idProduit && $type) {
+		} elseif($idProduit && $type && empty($date1) && empty($date2)) {
             $sql = 'SELECT * FROM entree_sortie_depot WHERE (idProduit = ? and `type` = ?)';
             $statement = $pdo->prepare($sql);
             if ($statement->execute([$idProduit, $type])) {
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+            }
+            return false;
+        }elseif($idProduit && $type && $date1 && empty($date2)) {
+            $sql = 'SELECT * FROM entree_sortie_depot WHERE (idProduit = ? and `type` = ? and `date` = ?)';
+            $statement = $pdo->prepare($sql);
+            if ($statement->execute([$idProduit, $type, $date1])) {
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+            }
+            return false;
+        }elseif($idProduit && $type && $date1 && ! empty($date2)) {
+            $sql = 'SELECT * FROM entree_sortie_depot WHERE (idProduit = ? and `type` = ? and (`date` between ? and ?))';
+            $statement = $pdo->prepare($sql);
+            if ($statement->execute([$idProduit, $type, $date1, $date2])) {
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             }
             return false;
@@ -165,13 +192,13 @@ require_once __DIR__ . '/Produit.php';
 		return $stmt->fetchAll();
 	}
 
-    public function read_inventaire_produit($type)
+    public function read_inventaire_produit($type, $date1 = null, $date2 = null)
     {
         $array_to_return = [];
         $produit = new Produit();
         $produits = $produit->read();
         foreach($produits as $par_produit) {
-            $entree_sortie = $this->read(null, $par_produit['idProduit'], $type);
+            $entree_sortie = $this->read(null, $par_produit['idProduit'], $type, $date1, $date2);
             $quantite_total = array_reduce(
                 $entree_sortie,
                 function ($prev, $item) {

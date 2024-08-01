@@ -180,6 +180,7 @@ function filter_validate_sortieentreedepot( $url = 'sortieentreedepot.php?q=')
 // inventaire stock
 
 function inventaire($array_inventaire) {
+    $recherche = recherche_dans_tableau();
 $line = "
 <main class='container-fluid'>
     <h2 class='text-secondary m-2 text-center'>Inventaire</h2>
@@ -187,6 +188,7 @@ $line = "
         <div class='col-md-7'></div>
         <div class='col-md-4'><small>total :  </small></div>
     </div>
+    $recherche
     <div class='horizontal'>
     <table class='table table-bordered'>
         <thead>
@@ -196,7 +198,7 @@ $line = "
             <th scope='col'>Quantite actuellement en stock </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id='tbody'>
 ";
 
             foreach($array_inventaire as $array) {

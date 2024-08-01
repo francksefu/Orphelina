@@ -108,5 +108,48 @@ $(document).ready(function(){
     });
   });
   
+  function put(id, date1ou2) {
+    $(id).on('click', function() {
+        $('#request').val($(this).attr('id'));
+        if(date1ou2 == 'une') {
+            $('.date1').show();
+            $('.date2').hide();
+            $('.type_trie').hide();
+        } else if(date1ou2 == 'uneetdemi') {
+            $('.date1').show();
+            $('.date2').hide();
+            $('.type_trie').show();
+        } else if( date1ou2 == 'deux') {
+            $('.date1').show();
+            $('.date2').show();
+            $('.type_trie').hide();
+        } else {
+            $('.date1').show();
+            $('.date2').show();
+            $('.type_trie').hide();
+        }
+    });
+  }
+  $(document).ready(function() {
+    put('#entree_comptabilite', 'une');
+    put('#sortie_comptabilite', 'une');
+    put('#entree_comptabilite_trie', 'uneetdemi');
+    put('#sortie_comptabilite_trie', 'uneetdemi');
+    put('#entree_depot', 'une');
+    put('#sortie_depot', 'une');
+    put('#entree_inventaire', 'une');
+    put('#sortie_inventaire', 'une');
+    put('#tous_inventaire', 'une');
 
+    put('#entree_comptabilite2', 'deux');
+    put('#sortie_comptabilite2', 'deux');
+    put('#entree_comptabilite_trie2', 'deuxetdemi');
+    put('#sortie_comptabilite_trie2', 'deuxetdemi');
+    put('#entree_depot2', 'deux');
+    put('#entree_depot2', 'deux');
+    put('#entree_inventaire2', 'deux');
+    put('#sortie_inventaire2', 'deux');
+    put('#tous_inventaire2', 'deux');
+    put('#enfant2', 'deux');
+  });
 
