@@ -6,7 +6,7 @@
     require_once __DIR__.'/../features/Enfant.php';
     require __DIR__.'/../inc/header.php';
     $path = __DIR__.'/../upload_files/2023-04-25_104501.png';
-    
+    require_login();
     $errors = [];
     $inputs = [];
     $valid = false;

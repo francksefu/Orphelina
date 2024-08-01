@@ -5,6 +5,7 @@
     require_once __DIR__.'/../features/Comptabilite.php';
     require_once __DIR__.'/../features/TypeTrie.php';
     require __DIR__.'/../inc/header.php';
+    require_login();
     $errors = [];
     $inputs = [];
     $valid = false;

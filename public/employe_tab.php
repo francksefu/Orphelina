@@ -4,6 +4,7 @@
     require __DIR__.'/../inc/func_employe.php';
     require_once __DIR__.'/../features/Employe.php';
     require __DIR__.'/../inc/header.php';
+    require_login();
     $errors = [];
     $inputs = [];
     $valid = false;

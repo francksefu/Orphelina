@@ -1,4 +1,6 @@
-<?php ob_start(); ?>
+<?php ob_start(); 
+if (isset($_SESSION['username'])) { 
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
   <div class="container-fluid">
     <a class="navbar-brand" href="home.php">La Compassion</a>
@@ -68,15 +70,24 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="type_trie.php">Ajouter un type de trie pour la comptabilité</a></li>
             <li><a class="dropdown-item" href="type_trie_tab.php">Voir les types de trie pour la comptabilité</a></li>
-            
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="user.php">Ajouter un utilisateurs</a></li>
+            <li><a class="dropdown-item" href="user_tab.php">Voir les utilisateurs</a></li>
+          
           </ul>
         </li>
 
         <li class="nav-item">
           <a class="nav-link" href="rapport.php" tabindex="-1" >Rapports</a>
         </li>
+        <?php if (isset($_SESSION['username'])) {  ?>
+        <li class="nav-item">
+          <a class="nav-link btin btn-primary" href="logout.php" tabindex="-1" >Deconnexion <?php echo $_SESSION['username']  ?></a>
+        </li>
+        <?php } ?>
       </ul>
       
     </div>
   </div>
 </nav>
+<?php } ?>

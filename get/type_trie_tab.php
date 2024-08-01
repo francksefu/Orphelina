@@ -1,4 +1,4 @@
-<?php flash('produit'); ?>
+<?php flash('type_trie'); ?>
 <main class="container-fluid">
     <h2 class="text-secondary m-2 text-center">Type de trie</h2>
     <div class="row">

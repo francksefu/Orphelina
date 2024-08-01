@@ -179,3 +179,37 @@ function recherche_dans_tableau()
     return $content;
 }
 
+function is_user_logged_in(): bool
+{
+    return isset($_SESSION['username']);
+}
+
+function require_login(): void
+{
+    if (!is_user_logged_in()) {
+        redirect_with_message('Vous devez d abord vous connecter', FLASH_ERROR, 'index', "index.php");
+    }
+}
+function get_redirect ()
+{
+    if(! isset($_GET['q'])) {
+        redirect_with_message('Essayez encore', FLASH_ERROR, 'home', "home.php");
+    }
+}
+function logout()
+{
+    if (isset($_SESSION['username'])) {
+        unset($_SESSION['username'], $_SESSION['user_id']);
+        session_destroy();
+        redirect_with_message('Vous etes maintenant deonnecté', FLASH_SUCCESS, 'index', "index.php");
+    }
+    redirect_with_message('Vous etes maintenant connecté', FLASH_ERROR, 'home', "home.php");
+}
+
+function current_user()
+{
+    if (is_user_logged_in()) {
+        return $_SESSION['username'];
+    }
+    return null;
+}
