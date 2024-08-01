@@ -24,6 +24,7 @@ function login(string $username, string $password): bool
         // set username in the session
         $_SESSION['username'] = $user['username'];
         $_SESSION['user_id']  = $user['id'];
+        $_SESSION['post']  = $user['post'];
 
 
         return true;

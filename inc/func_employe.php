@@ -85,6 +85,13 @@ function employe_tab($default_array) {
     $recherche = recherche_dans_tableau();
     $line = "";
     foreach($default_array as $array) {
+        $suppression = (isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') ? "<button type='button' class='btn btn-danger p-2 m-1 bd-highlight' data-bs-toggle='modal' data-bs-target='#delete_".$array['idEmployes']."'>
+                            Supprimer
+                        </button>
+
+                        <button type='button' class='btn btn-warning p-2 m-1 bd-highlight' data-bs-toggle='modal' data-bs-target='#update_".$array['idEmployes']."'>
+                            Modifier
+                        </button>" : '';
         $line .= "
                 <tr>
                     <th>".$array['idEmployes']."</th>
@@ -98,22 +105,16 @@ function employe_tab($default_array) {
                     <td>".floor(calculateAge($array['dateNaissance']))." ans</td>
                     <td>".floor(calculateAge($array['dateEntreEnService']) * 12)." mois</td>
                     
-                    <td class='d-flex flex-row bd-highlight mb-3'>
+                    <td class=' flex-row bd-highlight mb-3'>
 
-                        <button type='button' class='btn btn-danger p-2 m-1 bd-highlight' data-bs-toggle='modal' data-bs-target='#delete_".$array['idEmployes']."'>
-                            Supprimer
-                        </button>
-
-                        <button type='button' class='btn btn-warning p-2 m-1 bd-highlight' data-bs-toggle='modal' data-bs-target='#update_".$array['idEmployes']."'>
-                            Modifier
-                        </button>
+                        $suppression
                         
                     </td>
                 </tr>
         ";
         $content_update = add_update_employe(htmlspecialchars($_SERVER['PHP_SELF']), '', $array['noms_postnoms'], $array['fonction'], $array['phone'], $array['adressemail'], $array['dateNaissance'], $array['dateEntreEnService'], $array['dateFinService'], 'update', $array['idEmployes']);
-        $line .= modal("delete_".$array['idEmployes']."", "Supprimer l employé ".$array['noms_postnoms']."", "Voulez-vous vraiment supprimer cet employé ".$array['noms_postnoms']." qui a l ID : ".$array['idEmployes']."", htmlspecialchars($_SERVER["PHP_SELF"]), 'delete', "delete_".$array['idEmployes']."", 'supprimer');
-        $line .= modal("update_".$array['idEmployes']."", 'Modifier l employé', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['idEmployes']."", 'modifier', '', false);
+        $line .= (isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') ? modal("delete_".$array['idEmployes']."", "Supprimer l employé ".$array['noms_postnoms']."", "Voulez-vous vraiment supprimer cet employé ".$array['noms_postnoms']." qui a l ID : ".$array['idEmployes']."", htmlspecialchars($_SERVER["PHP_SELF"]), 'delete', "delete_".$array['idEmployes']."", 'supprimer') : '';
+        $line .= (isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') ? modal("update_".$array['idEmployes']."", 'Modifier l employé', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['idEmployes']."", 'modifier', '', false) : '';
     }
     $content = "
     $recherche

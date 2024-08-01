@@ -30,6 +30,14 @@
         <?php
             
             foreach($default_array as $array) {
+                $suppression =(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') ? "<div class='col-md-1'> </div>
+                                <button type='button' class='btn btn-danger col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idEnfant']."'>
+                                    Supprimer
+                                </button>
+
+                                <button type='button' class='btn btn-warning col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#update_".$array['idEnfant']."'>
+                                    Modifier
+                                </button>" : '';
                 $line = "
                         <tr>
                             <th>".$array['idEnfant']."</th>
@@ -46,21 +54,13 @@
                             <td>".$array['date_de_reunification']."</td>
                             
                             <td class='row'>
-                                <div class='col-md-1'> </div>
-                                <button type='button' class='btn btn-danger col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idEnfant']."'>
-                                    Supprimer
-                                </button>
-
-                                <button type='button' class='btn btn-warning col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#update_".$array['idEnfant']."'>
-                                    Modifier
-                                </button>
-                                
+                                $suppression
                             </td>
                         </tr>
                 ";
                 $content_update = add_update_enfant(htmlspecialchars($_SERVER['PHP_SELF']), '', $array['noms_postnoms'], $array['sexe'], $array['dateArrivee'], $array['age'], $array['parents'], $array['provenance'], $array['objetDeReferencement'], $array['observation_a_l_arrivee'], $array['status_de_reunification'], $array['description_sur_la_reunification'], $array['date_de_reunification'], 'update', $array['idEnfant']);
-                echo modal("delete_".$array['idEnfant']."", "Supprimer l enfant ".$array['noms_postnoms']."", "Voulez-vous vraiment supprimer cet enfant ".$array['noms_postnoms']." qui a l ID : ".$array['idEnfant']."", htmlspecialchars($_SERVER["PHP_SELF"]), 'delete', "delete_".$array['idEnfant']."", 'supprimer');
-                echo modal("update_".$array['idEnfant']."", 'Modifier l enfant', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['idEnfant']."", 'modifier', '', false);
+                echo (isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') ? modal("delete_".$array['idEnfant']."", "Supprimer l enfant ".$array['noms_postnoms']."", "Voulez-vous vraiment supprimer cet enfant ".$array['noms_postnoms']." qui a l ID : ".$array['idEnfant']."", htmlspecialchars($_SERVER["PHP_SELF"]), 'delete', "delete_".$array['idEnfant']."", 'supprimer') : '';
+                echo (isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') ? modal("update_".$array['idEnfant']."", 'Modifier l enfant', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['idEnfant']."", 'modifier', '', false) : '';
                 echo $line;
             }
         ?>

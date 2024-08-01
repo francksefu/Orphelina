@@ -224,6 +224,7 @@ $line = "
 function sortieentreedepot_tab($default_array, $array_of_product)
 {
     global $produit;
+    $auth = (isset($_SESSION['post']) && $_SESSION['post'] !=='directeur');
     $contenu = '';
     foreach($default_array as $array) {
         $line = '';
@@ -238,19 +239,7 @@ function sortieentreedepot_tab($default_array, $array_of_product)
                 </tr>
                     ";
         }
-        $contenu .= "
-        <div class='mt-1'>
-            <div class='row'>
-            <div class='col-md-2'> </div>
-            <div class='border border-secondary p-3 col-md-8'>
-                <div class='border-bottom pb-3'>facture : ".$array['Nfacture']."</div>
-                <div class='border-bottom pb-3'>Date : ".$array['Date']."<div>
-                <div class='border border-bottom pb-3'>Date et heure d enregistrement : ".$array['heure']."</div>
-                <div class='row border-bottom'>
-                    <div class='border-bottom pb-3 col-md-3'>Note :</div>
-                    <p class=' col-md-7'> ".$array['note']."</p>
-                </div>
-                <div class='row border-bottom'>
+        $suppression = $auth ? "<div class='row border-bottom'>
                     <div class=' col-md-3'> Actions</div>
                     <button type='button' class='btn btn-danger col-md-2 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['Nfacture']."'>
                             Supprimer
@@ -263,7 +252,20 @@ function sortieentreedepot_tab($default_array, $array_of_product)
                         
                         
                     </div>
+                </div>" : '';
+        $contenu .= "
+        <div class='mt-1'>
+            <div class='row'>
+            <div class='col-md-2'> </div>
+            <div class='border border-secondary p-3 col-md-8'>
+                <div class='border-bottom pb-3'>facture : ".$array['Nfacture']."</div>
+                <div class='border-bottom pb-3'>Date : ".$array['Date']."<div>
+                <div class='border border-bottom pb-3'>Date et heure d enregistrement : ".$array['heure']."</div>
+                <div class='row border-bottom'>
+                    <div class='border-bottom pb-3 col-md-3'>Note :</div>
+                    <p class=' col-md-7'> ".$array['note']."</p>
                 </div>
+                $suppression
             </div>
         
             <table class='table table-bordered'>

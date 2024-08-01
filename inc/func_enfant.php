@@ -1,6 +1,30 @@
 <?php
 function add_update_enfant($urlpost, $flash = '', $noms_postnoms = '', $sexe = '', $dateArrivee = '' , $age = '', $parents = '', $provenance = '', $objetDeReferencement = '', $observation_a_l_arrivee = '', $status_de_reunification = '', $description_sur_la_reunification = '', $date_de_reunification = '', $addorupdate = 'add', $id = '') {
     $width = $addorupdate == 'add' ? 6 : 10;
+        $selected_precis = '';
+        $selected = '';
+        $selected_ans = '';
+        $selected_mois = '';
+        $selected_semaine = '';
+        $selected_jour = '';
+        $age_number = '';
+        $selected_reunifie = $status_de_reunification == 'reunifie' ? 'selected' : '';
+        $selected_non_reunifie = $status_de_reunification == 'non reunifie' ? 'selected' : '';
+    if(! empty($age)) {
+        $age_tab = explode(' ', $age);
+        $age_precis = $age_tab[0];
+        $age_number = $age_tab[1];
+        $age_time = $age_tab[2];
+        $selected_precis = $age_precis == 'precis:' ? 'selected' : '';
+        $selected = $age_precis == '+/-' ? 'selected' : '';
+        $selected_ans = $age_time == 'ans' ? 'selected' : '';
+        $selected_mois = $age_time == 'mois' ? 'selected' : '';
+        $selected_semaine = $age_time == 'semaine' ? 'selected' : '';
+        $selected_jour = $age_time == 'jours' ? 'selected' : '';
+    }
+    $selected_masculin = $sexe == 'Masculin' ? 'selected' : '';
+    $selected_feminin = $sexe == 'Feminin' ? 'selected' : '';
+    
     $reunification = $addorupdate == 'add' ? "" : "
                 <div class='input-group mb-3'>
                     <span class='input-group-text'>Description dur la reunification</span>
@@ -25,8 +49,8 @@ function add_update_enfant($urlpost, $flash = '', $noms_postnoms = '', $sexe = '
                 <div class='input-group mb-3'>
                     <label class='input-group-text' for='inputGroupSelect01'>Sexe</label>
                     <select class='form-select' name='sexe' value='$sexe' id='inputGroupSelect01'>
-                        <option value='Masculin' selected>Masculin</option>
-                        <option value='Feminin'>Feminin</option>
+                        <option value='Masculin' $selected_masculin>Masculin</option>
+                        <option value='Feminin' $selected_feminin>Feminin</option>
                     </select>
                 </div>
                 <small class='text-danger'></small>
@@ -38,18 +62,18 @@ function add_update_enfant($urlpost, $flash = '', $noms_postnoms = '', $sexe = '
                     <span class='input-group-text' id='basic-addon1'>Age </span>
                     <span class='input-group-text' id='basic-addon1'>
                     <select class='form-select' id='age_precis' >
-                        <option value=''>precis</option>
-                        <option value='+/-'>+/-</option>
+                        <option value='precis:' $selected_precis>precis</option>
+                        <option value='+/-' $selected>+/-</option>
                     </select>
                     </span>
-                    <input type='hidden' name='age' id='age'>
-                    <input type='number' required id='age_number' step='0.5' class='form-control' placeholder='Ecrivez la date de naissance de l enfant si vous la connaissez ici' aria-label='Username' aria-describedby='basic-addon1'>
+                    <input type='hidden' name='age' id='age' value='$age'>
+                    <input type='number' required value='$age_number' id='age_number' step='0.5' class='form-control' placeholder='Ecrivez la date de naissance de l enfant si vous la connaissez ici' aria-label='Username' aria-describedby='basic-addon1'>
                     <span class='input-group-text' id='basic-addon1'>
                         <select class='form-select' id='age_time' >
-                            <option value='ans'>ans</option>
-                            <option value='mois'>mois</option>
-                            <option value='semaines'>semaines</option>
-                            <option value='jours'>jours</option>
+                            <option value='ans' $selected_ans>ans</option>
+                            <option value='mois' $selected_mois>mois</option>
+                            <option value='semaines' $selected_semaine>semaines</option>
+                            <option value='jours' $selected_jour>jours</option>
                         </select>
                     </span>
                 </div>
@@ -78,8 +102,8 @@ function add_update_enfant($urlpost, $flash = '', $noms_postnoms = '', $sexe = '
                 <div class='input-group mb-3'>
                     <label class='input-group-text' for='inputGroupSelect01'>Status de reunification</label>
                     <select class='form-select' id='inputGroupSelect01' name='status_de_reunification' value='$status_de_reunification'>
-                        <option value='non reunifie' selected>non reunifier</option>
-                        <option value='reunifie'>reunifier</option>
+                        <option value='non reunifie' $selected_reunifie>non reunifier</option>
+                        <option value='reunifie' $selected_non_reunifie>reunifier</option>
                     </select>
                 </div>
                 

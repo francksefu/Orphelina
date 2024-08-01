@@ -25,8 +25,15 @@
     </thead>
     <tbody id='tbody'>
         <?php
-            
+            $auth = (isset($_SESSION['post']) && $_SESSION['post'] !=='directeur');
             foreach($default_array as $array) {
+                $suppression = $auth ? "<button type='button' class='btn btn-danger col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idProduit']."'>
+                                    Supprimer
+                                </button>
+
+                                <button type='button' class='btn btn-warning col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#update_".$array['idProduit']."'>
+                                    Modifier
+                                </button>": '';
                 $line = "
                         <tr>
                             <th>".$array['idProduit']."</th>
@@ -43,20 +50,14 @@
                             
                             <td class='row'>
                             
-                                <button type='button' class='btn btn-danger col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idProduit']."'>
-                                    Supprimer
-                                </button>
-
-                                <button type='button' class='btn btn-warning col-md-5 m-1' data-bs-toggle='modal' data-bs-target='#update_".$array['idProduit']."'>
-                                    Modifier
-                                </button>
+                                $suppression
                                 
                             </td>
                         </tr>
                 ";
                 $content_update = add_update_produit(htmlspecialchars($_SERVER['PHP_SELF']), '', $array['nom'], $array['marque'], $array['quantiteStock'], $array['description'], $array['prixUnitaire'], 'update', $array['idProduit'], $array['unite_mesure'], $array['package'], $array['nom_package']);
-                echo modal("delete_".$array['idProduit']."", "Supprimer le produit ".$array['nom']."", "Voulez-vous vraiment supprimer le produit ".$array['nom']." qui a l ID : ".$array['idProduit']."", htmlspecialchars($_SERVER["PHP_SELF"]), 'delete', "delete_".$array['idProduit']."", 'supprimer');
-                echo modal("update_".$array['idProduit']."", 'Modifier le produit', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['idProduit']."", 'modifier', '', false);
+                echo $auth ? modal("delete_".$array['idProduit']."", "Supprimer le produit ".$array['nom']."", "Voulez-vous vraiment supprimer le produit ".$array['nom']." qui a l ID : ".$array['idProduit']."", htmlspecialchars($_SERVER["PHP_SELF"]), 'delete', "delete_".$array['idProduit']."", 'supprimer') : '';
+                echo $auth ? modal("update_".$array['idProduit']."", 'Modifier le produit', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['idProduit']."", 'modifier', '', false) : '' ;
                 echo $line;
             }
         ?>

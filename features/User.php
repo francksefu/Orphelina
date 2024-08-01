@@ -74,7 +74,7 @@ require_once __DIR__ . '/connect.php';
     function find_user_by_username(string $username)
     {
         global $pdo;
-        $sql = 'SELECT username, `password`
+        $sql = 'SELECT *
                 FROM user
                 WHERE username = ?';
 
