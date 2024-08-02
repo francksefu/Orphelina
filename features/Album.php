@@ -1,5 +1,5 @@
 <?php
-  require_once 'connect.php';
+  require_once __DIR__ . '/connect.php';
 
   class Album {
     
@@ -10,29 +10,29 @@
       $this->album = 'album';
     }
 
-    public function insert ($filename, $path, $description, $idEnfant, $size)
+    public function insert ($filename, $path, $description, $idEnfant, $size, $type, $title)
     {
       global $pdo;
-	  $sql = 'INSERT INTO album(`filename`, `path`, `description`, idEnfant, `size`) VALUES(?,?,?,?,?)';
+	  $sql = 'INSERT INTO album(`filename`, `path`, `description`, idEnfant, `size`, `type`, title) VALUES(?,?,?,?,?,?,?)';
 
 	  $statement = $pdo->prepare($sql);
 	  
 	  $statement->execute([
-		$filename, $path, $description, $idEnfant, $size
+		$filename, $path, $description, $idEnfant, $size, $type, $title
 	  ]);
 
 	  return $pdo->lastInsertId();
     }
 
-    public function update ($filename, $path, $description, $idEnfant, $size, $idAlbum)
+    public function update ($filename, $path, $description, $idEnfant, $size, $type, $title, $idAlbum)
     {
 		global $pdo;
 		$album = [
-			$filename, $path, $description, $idEnfant, $size, $idAlbum
+			$filename, $path, $description, $idEnfant, $size, $type, $title, $idAlbum
 		];
 		
 		$sql = 'UPDATE album
-				SET `filename` = ?, `path` = ?, `description` = ?, idEnfant = ?, `size` = ?
+				SET `filename` = ?, `path` = ?, `description` = ?, idEnfant = ?, `size` = ?, `type` = ?, title = ?
 				WHERE idAlbum = ?';
 		
 		$statement = $pdo->prepare($sql);
@@ -54,18 +54,23 @@
 		$statement = $pdo->prepare($sql);
 
 		// execute the DELETE statment
-		if ($statement->execute($idAlbum)) {
+		if ($statement->execute([$idAlbum])) {
 			return true;
 		}
         return false;
     }
 
-    public function read()
+    public function read($idEnfant = null, $type = null)
     {
 		global $pdo;
-		$sql = 'SELECT * FROM album LIMIT 800 order by idAlbum desc';
-
-		$statement = $pdo->query($sql);
+        if(empty((int) $idEnfant)) {
+            $sql = 'SELECT * FROM album order by idAlbum desc';
+            $statement = $pdo->query($sql);
+        } else {
+            $sql = 'SELECT * FROM album WHERE idEnfant = ? and `type` = ? order by idAlbum desc';
+            $statement = $pdo->prepare($sql);
+            $statement->execute([$idEnfant, $type]);
+        }
 
 		// get all publishers
 		return $statement->fetchAll(PDO::FETCH_ASSOC);

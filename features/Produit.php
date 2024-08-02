@@ -1,5 +1,5 @@
 <?php
-  require_once 'connect.php';
+require_once __DIR__ . '/connect.php';
 
   class Produit {
     
@@ -10,37 +10,38 @@
       $this->produit = 'produit';
     }
 
-    public function insert ($nom, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit)
+    public function insert ($nom, $marque , $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $unite_mesure, $package = null, $nom_package = null)
     {
       global $pdo;
-	  $sql = 'INSERT INTO produit(nom, `description`, quantiteSotck, prixUnitaire, idTypeProduit) VALUES(?,?,?,?,?)';
+	  $sql = 'INSERT INTO produit(nom, marque, `description`, quantiteStock, prixUnitaire, idTypeProduit, unite_mesure, package, nom_package) VALUES(?,?,?,?,?,?,?,?,?)';
 
 	  $statement = $pdo->prepare($sql);
 	  
 	  $statement->execute([
-		$nom, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit
+		$nom, $marque, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $unite_mesure, $package, $nom_package
 	  ]);
 
 	  return $pdo->lastInsertId();
     }
 
-    public function update ($nom, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $idProduit)
+    public function update ($nom, $marque, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $unite_mesure, $package, $nom_package, $idProduit)
     {
 		global $pdo;
 		$produit = [
-			$nom, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $idProduit
+			$nom, $marque, $description, $quantiteSotck, $prixUnitaire, $idTypeProduit, $unite_mesure, $package, $nom_package, $idProduit
 		];
 		
 		$sql = 'UPDATE produit
-				SET nom = ?, `description` = ?, quantiteSotck = ?, prixUnitaire = ?, idTypeProduit = ?
+				SET nom = ?, marque = ?, `description` = ?, quantiteStock = ?, prixUnitaire = ?, idTypeProduit = ?, unite_mesure = ?, package = ?, nom_package = ?
 				WHERE idProduit = ?';
 		
 		$statement = $pdo->prepare($sql);
 
 		// execute the UPDATE statment
 		if ($statement->execute($produit)) {
-			echo 'The publisher has been updated successfully!';
+			return true;
 		}
+        return false;
     }
 
     public function delete ($idProduit)
@@ -53,15 +54,16 @@
 		$statement = $pdo->prepare($sql);
 
 		// execute the DELETE statment
-		if ($statement->execute($idProduit)) {
-			echo 'The publisher has been successfully!';
+		if ($statement->execute([$idProduit])) {
+			return true;
 		}
+        return false;
     }
 
     public function read($idProduit = null)
     {
 		global $pdo;
-        if(! empty((int) $idProduit)) {
+        if(empty((int) $idProduit)) {
             $sql = 'SELECT * FROM produit order by nom asc';
             $statement = $pdo->query($sql);
         } else {
@@ -80,13 +82,13 @@
         global $pdo;
         $ancienneQuantiteStock = $this->read($idProduit)[0]['quantiteStock'];
         $sql = 'UPDATE produit
-				SET quantiteSotck = ?
+				SET quantiteStock = ?
 				WHERE idProduit = ?';
 		
 		$statement = $pdo->prepare($sql);
-        if ($type = 'delete') {
+        if ($type == 'delete') {
             $newQuantity = $ancienneQuantiteStock - $quantiteEntree;
-        } elseif($type = 'add') {
+        } elseif($type =='add') {
             $newQuantity = $ancienneQuantiteStock + $quantiteEntree;
         }
 

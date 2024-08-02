@@ -1,5 +1,5 @@
 <?php
-  require_once 'connect.php';
+require_once __DIR__ . '/connect.php';
 
   class Employe {
     
@@ -10,29 +10,29 @@
       $this->employe = 'employe';
     }
 
-    public function insert ($noms_postnoms, $poste, $phone, $adressemail, $dateNaissance, $dateEntreService, $dateFinService, $etat)
+    public function insert ($noms_postnoms, $fonction, $phone, $adressemail, $dateNaissance, $dateEntreService, $dateFinService)
     {
       global $pdo;
-	  $sql = 'INSERT INTO employes(noms_postnoms, poste, phone, adressemail, dateNaissance, dateEntreService, dateFinService, etat) VALUES(?,?,?,?,?,?,?,?)';
+	  $sql = 'INSERT INTO employes(noms_postnoms, fonction, phone, adressemail, dateNaissance, dateEntreEnService, dateFinService) VALUES(?,?,?,?,?,?,?)';
 
 	  $statement = $pdo->prepare($sql);
 	  
 	  $statement->execute([
-		$noms_postnoms, $poste, $phone, $adressemail, $dateNaissance, $dateEntreService, $dateFinService, $etat
+		$noms_postnoms, $fonction, $phone, $adressemail, $dateNaissance, $dateEntreService, $dateFinService
 	  ]);
 
 	  return $pdo->lastInsertId();
     }
 
-    public function update ($noms_postnoms, $poste, $phone, $adressemail, $dateNaissance, $dateEntreService, $dateFinService, $etat)
+    public function update ($noms_postnoms, $fonction, $phone, $adressemail, $dateNaissance, $dateEntreService, $dateFinService, $idEmployes)
     {
 		global $pdo;
 		$employe = [
-			$noms_postnoms, $poste, $phone, $adressemail, $dateNaissance, $dateEntreService, $dateFinService, $etat
+			$noms_postnoms, $fonction, $phone, $adressemail, $dateNaissance, $dateEntreService, $dateFinService, $idEmployes
 		];
 		
 		$sql = 'UPDATE employes
-				SET noms_postnoms = ?, poste = ?, phone = ?, adressemail = ?, dateNaissance = ?, dateEntreService = ?, dateFinService = ?, etat = ?
+				SET noms_postnoms = ?, fonction = ?, phone = ?, adressemail = ?, dateNaissance = ?, dateEntreEnService = ?, dateFinService = ?
 				WHERE idEmployes = ?';
 		
 		$statement = $pdo->prepare($sql);
@@ -54,7 +54,7 @@
 		$statement = $pdo->prepare($sql);
 
 		// execute the DELETE statment
-		if ($statement->execute($idEmployes)) {
+		if ($statement->execute([$idEmployes])) {
 			return true;
 		}
         return false;
@@ -63,7 +63,7 @@
     public function read()
     {
 		global $pdo;
-		$sql = 'SELECT * FROM employes LIMIT 800 order by idEmployes desc';
+		$sql = 'SELECT * FROM employes ORDER BY noms_postnoms DESC LIMIT 800';
 
 		$statement = $pdo->query($sql);
 
@@ -71,7 +71,7 @@
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-	public function querySurUneDate($date)
+	/*public function querySurUneDate($date)
 	{
 		global $pdo;
 		$sql = 'SELECT * FROM employes WHERE `Date` = ? order by idEmployes desc';
@@ -97,5 +97,5 @@
 
 		// Fetch all results
 		return $stmt->fetchAll();
-	}
+	}*/
   }

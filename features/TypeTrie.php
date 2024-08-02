@@ -1,5 +1,6 @@
 <?php
-  require_once 'connect.php';
+require_once __DIR__ . '/connect.php';
+require_once __DIR__ . '/Comptabilite.php';
 
   class TypeTrie {
     
@@ -10,29 +11,29 @@
       $this->typetrie = 'typetrie';
     }
 
-    public function insert ($name)
+    public function insert ($name, $table_de)
     {
       global $pdo;
-	  $sql = 'INSERT INTO type_trie(`name`) VALUES(?)';
+	  $sql = 'INSERT INTO type_trie(`name`, table_de) VALUES(?, ?)';
 
 	  $statement = $pdo->prepare($sql);
 	  
 	  $statement->execute([
-		$name
+		$name, $table_de
 	  ]);
 
 	  return $pdo->lastInsertId();
     }
 
-    public function update ($name, $idTypeTrie)
+    public function update ($name, $table_de, $idTypeTrie)
     {
 		global $pdo;
 		$typetrie = [
-			$name, $idTypeTrie
+			$name, $table_de, $idTypeTrie
 		];
 		
 		$sql = 'UPDATE type_trie
-				SET `name` = ?
+				SET `name` = ?, table_de = ?
 				WHERE idTypeTrie = ?';
 		
 		$statement = $pdo->prepare($sql);
@@ -47,25 +48,34 @@
     public function delete ($idTypeTrie)
     {
 		global $pdo;
-		
+        $comptabilite = new Comptabilite();
+        $compte = $comptabilite->read_by_type_trie($idTypeTrie)[0];
+		if (! empty($compte)) {
+            return false;
+        }
 		$sql = 'DELETE FROM type_trie
         WHERE idTypeTrie = ?';
 		
 		$statement = $pdo->prepare($sql);
 
 		// execute the DELETE statment
-		if ($statement->execute($idTypeTrie)) {
+		if ($statement->execute([$idTypeTrie])) {
 			return true;
 		}
         return false;
     }
 
-    public function read()
+    public function read($table_de = null)
     {
 		global $pdo;
-		$sql = 'SELECT * FROM type_trie LIMIT 800 order by idTypeTrie desc';
-
-		$statement = $pdo->query($sql);
+		if(empty($table_de)) {
+            $sql = 'SELECT * FROM type_trie order by `name` asc';
+            $statement = $pdo->query($sql);
+        } elseif($table_de == 'sortie' || $table_de == 'entrée') {
+            $sql = 'SELECT * FROM type_trie WHERE table_de = ? order by `name` asc';
+            $statement = $pdo->prepare($sql);
+            $statement->execute([$table_de]);
+        }
 
 		// get all publishers
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
