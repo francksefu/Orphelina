@@ -1,3 +1,7 @@
+function isValidNumber(input) {
+    let pattern = /^[0-9.]+$/;
+    return pattern.test(input);
+}
 $(document).ready(function(){
     $("#myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
@@ -39,13 +43,9 @@ $(document).ready(function(){
             $('#unite_de_mesure').text('');
         }
     });
-
+    
     $('#quantite').on('blur', function() {
         let text = $('#quantite').val();
-        function isValidNumber(input) {
-            var pattern = /^[0-9.]+$/;
-            return pattern.test(input);
-        }
         
         if(! isValidNumber(text)) {
             $(this).addClass('border border-danger');
@@ -152,4 +152,17 @@ $(document).ready(function(){
     put('#tous_inventaire2', 'deux');
     put('#enfant2', 'deux');
   });
+// uniquement les chiffres pas encore ajustE
+  $(document).ready(function() {
+    
+    $('#submit').on('click', function(e) {
+        
+        let text = $('.number').val();
+        if(! isValidNumber(text)) {
+            e.preventDefault();
+            $('.number-text').text('le champ ci haut ne doit contenir que des chiffres, corriger le d abord avant d evoluer');
+        }
+      });
+  })
+  
 
