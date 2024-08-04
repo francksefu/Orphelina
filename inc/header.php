@@ -11,6 +11,9 @@
     <link href="../cssfile/sortieentreedepot.css" rel="stylesheet" >
 </head>
 <body class="bg-light">
-    <?php require __DIR__ . '/navbar.php' ?>
+    <?php 
+    require __DIR__.'/func_traducteur.php';
+    require __DIR__ . '/navbar.php' 
+    ?>
     
     

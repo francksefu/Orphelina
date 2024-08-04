@@ -6,6 +6,7 @@
     require_once __DIR__.'/../features/TypeTrie.php';
     require_once __DIR__.'/../features/Comptabilite.php';
     require_once __DIR__.'/../features/Produit.php';
+    require_once __DIR__.'/../features/Child.php';
     require_once __DIR__.'/../features/SortieEntreeDepot.php';
     require __DIR__.'/../inc/flash.php';
     require __DIR__.'/../inc/header.php';

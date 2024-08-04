@@ -119,10 +119,15 @@
 		$stmt = $pdo->prepare($sql);
 
 		// Execute the statement
-		$stmt->execute([$idComptabilite]);
+		if($stmt->execute([$idComptabilite])) {
+			return $stmt->fetchAll();
+		} else {
+			return false;
+		}
+		
 
 		// Fetch all results
-		return $stmt->fetchAll();
+		
 	}
 
 	public function querySurUneDate($date)

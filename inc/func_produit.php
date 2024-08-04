@@ -16,9 +16,9 @@ function add_update_produit($urlpost, $flash = '', $nom = '', $marque = '', $qua
                 </div>
                 <div class='input-group mb-3'>
                     <span class='input-group-text' id='basic-addon1'>Quantite en stock</span>
-                    <input required type='float' name='quantiteStock' value='$quantiteStock' class='form-control' placeholder='ecrivez la quantite en stock' aria-label='Username' aria-describedby='basic-addon1'>
+                    <input required type='number' name='quantiteStock' step='0.001' value='$quantiteStock' class='form-control number' placeholder='ecrivez la quantite en stock' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
-                <small class='text-danger'></small>
+                <small class='text-danger number-text'></small>
                 
             </div>
         </div>
@@ -46,9 +46,9 @@ function add_update_produit($urlpost, $flash = '', $nom = '', $marque = '', $qua
         <div class='col-md-6'>
             <div class='input-group mb-3'>
                 <span class='input-group-text'>Paquet</span>
-                <input type='float' value='$package' name='package' step='0.001' placeholder='Ecrivez le paquet contient combien d unite de mesure ici' class='form-control' aria-label='Amount (to the nearest dollar)'>
+                <input required type='number' value='$package' name='package' step='0.001' placeholder='Ecrivez le paquet contient combien d unite de mesure ici' class='form-control number' aria-label='Amount (to the nearest dollar)'>
             </div>
-            <small class='text-danger'></small>
+            <small class='text-danger number-text'></small>
         </div>
         <div class='col-md-6'>
             <div class='input-group mb-3'>
@@ -57,21 +57,10 @@ function add_update_produit($urlpost, $flash = '', $nom = '', $marque = '', $qua
             </div>
         </div>
 
-        <div class='col-md-6'>
-            <div class='input-group mb-3'>
-                <label class='input-group-text' for='inputGroupSelect01'>Type</label>
-                <select class='form-select' id='inputGroupSelect01'>
-                    <option selected>Choose...</option>
-                    <option value='1'>One</option>
-                    <option value='2'>Two</option>
-                    <option value='3'>Three</option>
-                </select>
-            </div>
-            <small class='text-danger'></small>
-        </div>
+        
         <input type='hidden' name='addorupdate' value='$addorupdate'>
         <input type='hidden' name='id' value='$id'>
-        <input type='submit' class='btn btn-primary' value='Soumettre'>
+        <input type='submit' id='submit' class='btn btn-primary' value='Soumettre'>
     </form>";
     return $content;
 }

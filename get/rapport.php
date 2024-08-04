@@ -3,6 +3,7 @@
 $comptabilite = new Comptabilite();
 $sortieentreedepot = new SortieEntreeDepot();
 $produit = new Produit();
+$childe = new Enfant();
 if(! isset($_GET['request'])) {
     echo add_rapport(htmlspecialchars($_SERVER['PHP_SELF']), $array_of_type_trie ); 
 } else {
@@ -180,6 +181,14 @@ if(! isset($_GET['request'])) {
         $date2 = $request = filter_input(INPUT_GET, 'date2', FILTER_SANITIZE_SPECIAL_CHARS);
         $date1 = $request = filter_input(INPUT_GET, 'date1', FILTER_SANITIZE_SPECIAL_CHARS);
         $arr = $sortieentreedepot->read_inventaire_produit('sortie', $date1, $date2);
+        echo "<h2 class='text-center text-secondary mt-3 mb-3'>Inventaire des sorties</h2>";
+        echo inventaire($arr);
+    }
+
+    if($_GET['request'] == 'enfant2' && $_GET['date2']) {
+        $date2 = $request = filter_input(INPUT_GET, 'date2', FILTER_SANITIZE_SPECIAL_CHARS);
+        $date1 = $request = filter_input(INPUT_GET, 'date1', FILTER_SANITIZE_SPECIAL_CHARS);
+        $children = $child->read_by_date($date1, $date2);
         echo "<h2 class='text-center text-secondary mt-3 mb-3'>Inventaire des sorties</h2>";
         echo inventaire($arr);
     }

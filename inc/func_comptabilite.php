@@ -31,10 +31,10 @@ function add_update_comptabilite($urlpost, $type, $date , $value_montant = '', $
         <div class='col-md-6'>
             <div class='input-group mb-3'>
                 <span class='input-group-text'>Montant</span>
-                <input required type='float' value='$value_montant' name='montant' step='0.001' placeholder='Ecrivez le montant ici' class='form-control' aria-label='Amount (to the nearest dollar)'>
+                <input required type='float' value='$value_montant' name='montant' step='0.001' placeholder='Ecrivez le montant ici' class='form-control number' aria-label='Amount (to the nearest dollar)'>
                 <span class='input-group-text'>USD</span>
             </div>
-            <small class='text-danger'></small>
+            <small class='text-danger number-text'></small>
         </div>
         <div class='col-md-6'>
             <div class='input-group mb-3'>
@@ -56,7 +56,7 @@ function add_update_comptabilite($urlpost, $type, $date , $value_montant = '', $
         <input type='hidden' name='type' value='$type'>
         <input type='hidden' name='addorupdate' value='$addorupdate'>
         <input type='hidden' name='id' value='$id'>
-        <input type='submit' class='btn btn-primary' value='Soumettre une $type'>
+        <input type='submit' id='submit' class='btn btn-primary' value='Soumettre une $type'>
     </form>";
     return $content;
 }
@@ -127,7 +127,7 @@ function comptabilite_tab($default_array) {
                         </button>" : '';
         $line .= "
                 <tr>
-                    <th>".$array['idComptabilite']."</th>
+                    <th>".$array['idComptabilite']."<br><a class='btn btn-success' target='_blank' href='generatepdf.php?q=".$array['idComptabilite']."' >Imprimer facture</a></th>
                     <td>".$array['montant']."</td>
                     <td>".$array['motif']."</td>
                     <td>".$array['Date']."</td>

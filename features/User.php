@@ -10,15 +10,15 @@ require_once __DIR__ . '/connect.php';
       $this->user = 'user';
     }
 
-    public function insert ($username, $password, $post, $etat)
+    public function insert ($username, $password, $post, $etat, $langue)
     {
       global $pdo;
-	  $sql = 'INSERT INTO user (username, `password`, post, `state`) VALUES(?,?,?,?)';
+	  $sql = 'INSERT INTO user (username, `password`, post, `state`, langue) VALUES(?,?,?,?,?)';
 
 	  $statement = $pdo->prepare($sql);
 	  
 	  $statement->execute([
-		$username, $password, $post, $etat
+		$username, $password, $post, $etat, $langue
 	  ]);
 
 	  return $pdo->lastInsertId();
