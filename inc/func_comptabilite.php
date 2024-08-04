@@ -127,7 +127,7 @@ function comptabilite_tab($default_array) {
                         </button>" : '';
         $line .= "
                 <tr>
-                    <th>".$array['idComptabilite']."</th>
+                    <th>".$array['idComptabilite']."<br><a class='btn btn-success' target='_blank' href='generatepdf.php?q=".$array['idComptabilite']."' >Imprimer facture</a></th>
                     <td>".$array['montant']."</td>
                     <td>".$array['motif']."</td>
                     <td>".$array['Date']."</td>

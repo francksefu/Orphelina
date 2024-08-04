@@ -74,9 +74,9 @@ if (isset($_SESSION['username'])) {
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') {?>
-            <li><a class="dropdown-item" href="enfant.php">Ajouter un enfant</a></li>
+            <li><a class="dropdown-item" href="child.php">Ajouter un enfant</a></li>
             <?php } ?>
-            <li><a class="dropdown-item" href="enfant_tab.php">Voir les enfant</a></li>
+            <li><a class="dropdown-item" href="child_tab.php">Voir les enfant</a></li>
             
           </ul>
         </li>

@@ -15,14 +15,22 @@ function add_update_user($urlpost, $flash = '', $username = '', $password = '', 
                     <input required type='password' name='password' class='form-control' value='$password' placeholder='Ecrivez le mot de passe ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <div class='input-group mb-3'>
-                <label class='input-group-text' for='inputGroupSelect01'>Post</label>
-                <select class='form-select' name='post' id='inputGroupSelect01'>
-                    <option value='administrateur'>administrateur</option>
-                    <option value='comptable'>comptable</option>
-                    <option value='magazinien ou depot'>magazinien ou depot</option>
-                    <option value='directeur'>directeur</option>
-                </select>
-            </div>
+                    <label class='input-group-text' for='inputGroupSelect01'>Post</label>
+                    <select class='form-select' name='post' id='inputGroupSelect01'>
+                        <option value='administrateur'>administrateur</option>
+                        <option value='comptable'>comptable</option>
+                        <option value='magazinien ou depot'>magazinien ou depot</option>
+                        <option value='directeur'>directeur</option>
+                    </select>
+                </div>
+
+                <div class='input-group mb-3'>
+                    <label class='input-group-text' for='inputGroupSelect01'>Langue</label>
+                    <select class='form-select' name='post' id='inputGroupSelect01'>
+                        <option value='francais'>francais</option>
+                        <option value='anglais'>anglais</option>
+                    </select>
+                </div>
                 
             </div>
         </div>

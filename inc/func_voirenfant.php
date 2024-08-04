@@ -92,16 +92,24 @@ function voir_enfant($array_of_images = '', $array_of_dossiers = '', $array = ''
 <div class='row'>
     <div class='cart-image-profil col-md-3'> </div>
     <div class='cart-description col-md-7'>
-        <div class='border-bottom'>nom : ". $array['noms_postnoms']."</div>
+        <div class='border-bottom'>nom : ". $array['nom']."</div>
         <div class='border-bottom'>sexe : ". $array['sexe']."</div>
-        <div class='border-bottom'>date d'arrivée : ". $array['dateArrivee']."</div>
-        <div class='border-bottom'>age a l'arrivée : ". $array['age']."</div>
+        <div class='border-bottom'>date de naissance : ". $array['dateNaissance']."</div>
+        <div class='border-bottom'>ecole class courant : ". $array['ecoleClassCourant']."</div>
+        <div class='border-bottom'>date arrivee : ". $array['dateArrivee']."</div>
+        <div class='border-bottom'>age a l'arrivée : ". $array['ageEntree']."</div>
         <div class='border-bottom'>age qu il ou elle a aujourd'hui : nom</div>
-        <div class='border-bottom'>Parents : ". $array['parents']."</div>
-        <div class='border-bottom'>Provenance : ". $array['provenance']."</div>
-        <div class='border-bottom'>Object de referencement : ". $array['objetDeReferencement']."</div>
-        <div class='border-bottom'>Observation a l'arrivée : ". $array['observation_a_l_arrivee']."</div>
-        <div class='border-bottom'>Status de referencement : ". $array['status_de_reunification']."</div>
+        <div class='border-bottom'>Freres et soeurs : ". $array['freres_et_soeurs']."</div>
+        <div class='border-bottom'>Histoire : ". $array['histoire']."</div>
+        <div class='border-bottom'>Sujet favori : ". $array['sujet_favoris']."</div>
+        <div class='border-bottom'>travail : ". $array['travail_de_reve']."</div>
+        <div class='border-bottom'>bouf : ". $array['nourriture_favoris']."</div>
+        <div class='border-bottom'>hobbies : ". $array['hobbies']."</div>
+        <div class='border-bottom'>couleur : ". $array['couleur']."</div>
+        <div class='border-bottom'>meilleur ami : ". $array['meilleur_ami']."</div>
+        <div class='border-bottom'>talent : ". $array['talent']."</div>
+        <div class='border-bottom'>grand reves : ". $array['grand_reves']."</div>
+        <div class='border-bottom'>status de reunification : ". $array['status_de_reunification']."</div>
         <div class='border-bottom'>Description sur la reunification : ". $array['description_sur_la_reunification']."</div>
     </div>
 </div>
