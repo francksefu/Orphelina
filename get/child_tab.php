@@ -1,6 +1,6 @@
 <?php flash('child'); ?>
 <main class="container-fluid">
-    <h2 class="text-secondary m-2 text-center">Enfant</h2>
+    <h2 class="text-secondary m-2 text-center"><?php echo tr('Enfant'); ?></h2>
     <?php echo child_tab($default_array, $total) ?>
 <!-- Button trigger modal -->
 
@@ -64,26 +64,26 @@
     <thead>
         <tr>
         <th scope='col'>id</th>
-        <th scope='col'>Nom et post noms</th>
+        <th scope='col'>".tr('Nom')."</th>
         <th scope='col'>Sexe</th>
-        <th scope='col'>Date de naissance</th>
-        <th scope='col'>class courante a l ecole</th>
-        <th scope='col'>date d arrivee</th>
-        <th scope='col'>age d entree</th>
-        <th scope='col'>freres et soeurs</th>
-        <th scope='col'>Histoire</th>
-        <th scope='col'>Sujet favoris</th>
-        <th scope='col'>Travail de reve</th>
-        <th scope='col'>Nourriture favoris</th>
-        <th scope='col'>Hobbies</th>
-        <th scope='col'>Couleur</th>
-        <th scope='col'>Meilleur ami</th>
-        <th scope='col'>talent</th>
-        <th scope='col'>Grand reves</th>
-        <th scope='col'>Traits interessant</th>
-        <th scope='col'>Status de reunification</th>
-        <th scope='col'>Description sur la reunification</th>
-        <th scope='col'>Date de reunification</th>
+        <th scope='col'>".tr('Date de naissance')."</th>
+        <th scope='col'>".tr('annee d ecole')."</th>
+        <th scope='col'>".tr('Date d arrivee')."</th>
+        <th scope='col'>".tr('Age à l entrée')."</th>
+        <th scope='col'>".tr('Siblings at home?')."</th>
+        <th scope='col'>".tr('Arriere-plan')."</th>
+        <th scope='col'>".tr('Sujet favori')."</th>
+        <th scope='col'>".tr('Quel est le travail de tes reves?')."</th>
+        <th scope='col'>".tr('Nourriture favorite')."</th>
+        <th scope='col'>".tr('Passe-temps')."</th>
+        <th scope='col'>".tr('Couleur')."</th>
+        <th scope='col'>".tr('Meilleur ami')."</th>
+        <th scope='col'>Talents</th>
+        <th scope='col'>".tr('Quel est ton plus grand reve ou souhait?')."</th>
+        <th scope='col'>".tr('Fait ou caracter interessant sur l enfant')."</th>
+        <th scope='col'>".tr('Status de reunification')."</th>
+        <th scope='col'>".tr('Description sur la reunification')."</th>
+        <th scope='col'>".tr('Date de reunification')."</th>
         
         <th scope='col'>action</th>
         </tr>

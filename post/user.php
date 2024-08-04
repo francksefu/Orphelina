@@ -5,9 +5,10 @@
     $password = $array['password'];
     $post = $array['post'];
     $state = $array['state'];
+    $langue = $array['langue'];
     $user = new User();
     if ($username && $password ) {
-        if ($user->insert($username, password_hash($password, PASSWORD_BCRYPT), $post, $state)) {
+        if ($user->insert($username, password_hash($password, PASSWORD_BCRYPT), $post, $state, $langue)) {
             redirect_with_message('Insertion fait avec success !', FLASH_SUCCESS, 'user', "user.php");
         }
     } else {

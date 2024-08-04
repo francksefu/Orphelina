@@ -12,16 +12,16 @@ if (isset($_SESSION['username'])) {
       <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='magazinien ou depot') { ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Comptabilite
+            <?php echo tr('Comptabilite') ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') { ?>
-            <li><a class="dropdown-item" href="comptabilite.php?q=entrée">Ajouter une Entree</a></li>
-            <li><a class="dropdown-item" href="comptabilite.php?q=sortie">Ajouter une Sortie</a></li>
+            <li><a class="dropdown-item" href="comptabilite.php?q=entrée"><?php echo tr('Ajouter') ?> <?php echo tr('Entrée') ?></a></li>
+            <li><a class="dropdown-item" href="comptabilite.php?q=sortie"><?php echo tr('Ajouter') ?> <?php echo tr('Sortie') ?></a></li>
             <li><hr class="dropdown-divider"></li>
             <?php }?>
-            <li><a class="dropdown-item" href="comptabilite_tab.php?q=entrée">Voir les entrees</a></li>
-            <li><a class="dropdown-item" href="comptabilite_tab.php?q=sortie">Voir les sorties</a></li>
+            <li><a class="dropdown-item" href="comptabilite_tab.php?q=entrée"><?php echo tr('Voir') ?> <?php echo tr('Entrée') ?></a></li>
+            <li><a class="dropdown-item" href="comptabilite_tab.php?q=sortie"><?php echo tr('Voir') ?> <?php echo tr('Sortie') ?></a></li>
           </ul>
         </li>
 
@@ -30,25 +30,25 @@ if (isset($_SESSION['username'])) {
         ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Produit
+          <?php echo tr('Produit') ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') {?>
-            <li><a class="dropdown-item" href="produit.php">Ajouter un produit</a></li>
+            <li><a class="dropdown-item" href="produit.php"><?php echo tr('Ajouter') .' '. tr('un') .' '. tr('Produit') ?></a></li>
           <?php } ?>
-            <li><a class="dropdown-item" href="produit_tab.php">Voir les produits</a></li>
+            <li><a class="dropdown-item" href="produit_tab.php"><?php echo tr('Voir') .' '. tr('les') .' '. tr('Produit') ?></a></li>
             <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') {?>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="sortieentreedepot.php?q=entrée">Ajouter une entrée dans le depot</a></li>
-            <li><a class="dropdown-item" href="sortieentreedepot.php?q=sortie">Ajouter une sortie dans le depot</a></li>
+            <li><a class="dropdown-item" href="sortieentreedepot.php?q=entrée"><?php echo tr('Ajouter') .' '. tr('une') .' '. tr('entrée dans le depot') ?></a></li>
+            <li><a class="dropdown-item" href="sortieentreedepot.php?q=sortie"><?php echo tr('Ajouter') .' '. tr('une') .' '. tr('sortie dans le depot') ?></a></li>
             <?php } ?>
 
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="sortieentreedepot_tab.php?q=entrée">Voir les entrées dans le depot</a></li>
-            <li><a class="dropdown-item" href="sortieentreedepot_tab.php?q=sortie">Voir les sorties dans le depot</a></li>
+            <li><a class="dropdown-item" href="sortieentreedepot_tab.php?q=entrée"><?php echo tr('Voir') .' '. tr('les') .' '. tr('entrée dans le depot') ?></a></li>
+            <li><a class="dropdown-item" href="sortieentreedepot_tab.php?q=sortie"><?php echo tr('Voir') .' '. tr('les') .' '. tr('entrée dans le depot') ?></a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="inventaire.php?q=entrée">Voir l inventaire des entrées dans le depot</a></li>
-            <li><a class="dropdown-item" href="inventaire.php?q=sortie">Voir l inventaire des sorties dans le depot</a></li>
+            <li><a class="dropdown-item" href="inventaire.php?q=entrée"><?php echo tr('Voir')  .' '. tr('l inventaire des entrées dans le depot') ?></a></li>
+            <li><a class="dropdown-item" href="inventaire.php?q=sortie"><?php echo tr('Voir') .' '. tr('l inventaire des sorties dans le depot') ?></a></li>
           
           </ul>
         </li>
@@ -70,20 +70,20 @@ if (isset($_SESSION['username'])) {
         <?php } ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Enfant
+            <?php echo tr('Enfant') ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') {?>
-            <li><a class="dropdown-item" href="child.php">Ajouter un enfant</a></li>
+            <li><a class="dropdown-item" href="child.php"><?php echo tr('Ajouter')  .' '. tr('un').' '.tr('Enfant') ?></a></li>
             <?php } ?>
-            <li><a class="dropdown-item" href="child_tab.php">Voir les enfant</a></li>
+            <li><a class="dropdown-item" href="child_tab.php"><?php echo tr('Voir')  .' '. tr('les').' '.tr('enfants') ?></a></li>
             
           </ul>
         </li>
         <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='magazinien ou depot') {  ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Parametres
+            <?php echo tr('Parametres') ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') {?>
@@ -101,7 +101,7 @@ if (isset($_SESSION['username'])) {
         </li>
         <?php } ?>
         <li class="nav-item">
-          <a class="nav-link" href="rapport.php" tabindex="-1" >Rapports</a>
+          <a class="nav-link" href="rapport.php" tabindex="-1" ><?php echo tr('Rapports') ?></a>
         </li>
         <?php if (isset($_SESSION['username'])) {  ?>
         <li class="nav-item">

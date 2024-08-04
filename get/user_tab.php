@@ -12,6 +12,7 @@
         <th scope="col">id</th>
         <th scope="col">Nom de l utilisateur</th>
         <th scope="col">Poste </th>
+        <th scope="col">Langue </th>
         <th scope="col">Etat </th>
         <th scope="col">action</th>
         </tr>
@@ -25,6 +26,7 @@
                             <th>".$array['idUser']."</th>
                             <td>".$array['username']."</td>
                             <td>".$array['post']."</td>
+                            <td>".$array['langue']."</td>
                             <td>".$array['state']." </td>
                             
                             <td class='row'>

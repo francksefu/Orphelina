@@ -5,6 +5,7 @@
         <div class="col-md-7"></div>
         <div class="col-md-4"><small>total : <?php echo $total ?> </small></div>
     </div>
+    <?php echo recherche_dans_tableau(); ?>
 <div class='horizontal'>
 <table class="table table-bordered">
     <thead>

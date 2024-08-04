@@ -76,6 +76,17 @@ require_once __DIR__ . '/connect.php';
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+	public function read_by_date($date1, $date2)
+    {
+		global $pdo;
+        $sql = 'SELECT * FROM children WHERE date_de_reunification between  ? and ? order by nom asc';
+        $statement = $pdo->prepare($sql);
+        $statement->execute([$date1, $date2]);
+
+		// get all publishers
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 	/*public function querySurUneDate($date)
 	{
 		global $pdo;

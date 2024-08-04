@@ -26,7 +26,7 @@ function add_update_user($urlpost, $flash = '', $username = '', $password = '', 
 
                 <div class='input-group mb-3'>
                     <label class='input-group-text' for='inputGroupSelect01'>Langue</label>
-                    <select class='form-select' name='post' id='inputGroupSelect01'>
+                    <select class='form-select' name='langue' id='inputGroupSelect01'>
                         <option value='francais'>francais</option>
                         <option value='anglais'>anglais</option>
                     </select>
@@ -67,6 +67,7 @@ function filter_validate_user( $url = 'user.php')
     }
 
     $post = filter_input(INPUT_POST, 'post', FILTER_SANITIZE_SPECIAL_CHARS);
+    $langue = filter_input(INPUT_POST, 'langue', FILTER_SANITIZE_SPECIAL_CHARS);
     
     if($post === false) {
         redirect_with_message('Le post de l utilisateur doit etre present !', FLASH_ERROR, 'user', $url);
@@ -74,5 +75,5 @@ function filter_validate_user( $url = 'user.php')
 
     $state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_SPECIAL_CHARS);
     
-    return ['username' => $username, 'password' => $password, 'post' => $post, 'state' => $state];
+    return ['username' => $username, 'password' => $password, 'post' => $post, 'state' => $state, 'langue' => $langue];
 }
