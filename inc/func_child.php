@@ -43,7 +43,7 @@ function add_update_child($urlpost, $flash = '', $nom = '', $sexe = '', $dateNai
         <div class='row mb-3'>
             <div class='col-md-$width'>
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Nom et post noms</span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('Nom')."</span>
                     <input type='text' name='nom' class='form-control' value='$nom' placeholder='Ecrivez le nom de l employé ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <div class='input-group mb-3'>
@@ -55,21 +55,21 @@ function add_update_child($urlpost, $flash = '', $nom = '', $sexe = '', $dateNai
                 </div>
                 <small class='text-danger'></small>
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Date de naissance</span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('Date de naissance')."</span>
                     <input type='date' name='dateNaissance' class='form-control' value='$dateNaissance' placeholder='Ecrivez le nom de l employé ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Année d école</span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('annee d ecole')."</span>
                     <input type='text' name='ecoleClassCourant' class='form-control' value='$ecoleClassCourant' placeholder='Ecrivez l annee courant a l ecole' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 
                 <small class='text-danger'></small>
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Date d'arrivée </span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('Date d arrivee')." </span>
                     <input type='date' name='dateArrivee' class='form-control' value='$dateArrivee' placeholder='Ecrivez la date de l arrivee de l enfant dans l orphelina ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Age d entree</span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('Age à l entrée')."</span>
                     <span class='input-group-text' id='basic-addon1'>
                     <select class='form-select' id='age_precis' >
                         <option value='precis:' $selected_precis>precis</option>
@@ -88,7 +88,7 @@ function add_update_child($urlpost, $flash = '', $nom = '', $sexe = '', $dateNai
                     </span>
                 </div>
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Freres et soeurs </span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('Freres et soeurs?')." </span>
                     <input type='text' name='freres_et_soeurs' class='form-control' value='$freres_et_soeurs' placeholder='Ecrivez ici les noms des freres et soeurs ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 
@@ -99,7 +99,7 @@ function add_update_child($urlpost, $flash = '', $nom = '', $sexe = '', $dateNai
                 <small class='text-danger'></small>
 
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Sujet favoris </span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('Sujet favori')." </span>
                     <input type='text' name='sujet_favoris' class='form-control' value='$sujet_favoris' placeholder='Ecrivez ici le sujet favoris ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <small class='text-danger'></small>
@@ -111,25 +111,25 @@ function add_update_child($urlpost, $flash = '', $nom = '', $sexe = '', $dateNai
                 <small class='text-danger'></small>
 
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Nourriture favoris </span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('Nourriture favorite')." </span>
                     <input type='text' name='nourriture_favoris' class='form-control' value='$nourriture_favoris' placeholder='Ecrivez ici la nourriture favoris de l enfant ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <small class='text-danger'></small>
 
                 <div class='input-group mb-3'>
-                    <span class='input-group-text'>Hobbies</span>
+                    <span class='input-group-text'>".tr('Passe-temps')."</span>
                     <textarea name='hobbies'  class='form-control' placeholder='Ecrivez l histoire de l enfant ici ...' aria-label='With textarea'>$hobbies</textarea>
                 </div>
                 <small class='text-danger'></small>
 
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Couleur </span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('Couleur')."</span>
                     <input type='text' name='couleur' class='form-control' value='$couleur' placeholder='Ecrivez ici la nourriture favoris de l enfant ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <small class='text-danger'></small>
 
                 <div class='input-group mb-3'>
-                    <span class='input-group-text' id='basic-addon1'>Meilleur ami(e) </span>
+                    <span class='input-group-text' id='basic-addon1'>".tr('Meilleur ami')." </span>
                     <input type='text' name='meilleur_ami' class='form-control' value='$meilleur_ami' placeholder='Ecrivez ici la nourriture favoris de l enfant ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <small class='text-danger'></small>
