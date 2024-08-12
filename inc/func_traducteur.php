@@ -1,7 +1,11 @@
 <?php
 
 function tr($word) {
-    $langue = $_SESSION['langue'] == 'francais';
+    $langue = false;
+    if (isset($_SESSION['langue']) && $_SESSION['langue'] == 'francais') {
+        $langue = $_SESSION['langue'] == 'francais';
+    }
+    
     if ($langue) {
         return $word;
     }
