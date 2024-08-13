@@ -56,7 +56,7 @@ if ($addorupdate === 'update') {
     $date_de_reunification = $array['date_de_reunification'];
         $child = new Enfant();
         if ($nom) {
-            if ($enfant->update($nom, $sexe, $dateNaissance, $ecoleClassCourant, $dateArrivee, $ageEntree, $freres_et_soeurs, $histoire, $sujet_favoris, $travail_de_reve, $nourriture_favoris, $hobbies, $couleur, $meilleur_ami, $talent, $talent, $grand_reves, $traits_interessant, $status_de_reunification, $description_sur_la_reunification, $date_de_reunification, $id)) {
+            if ($enfant->update_child($nom, $sexe, $dateNaissance, $ecoleClassCourant, $dateArrivee, $ageEntree, $freres_et_soeurs, $histoire, $sujet_favoris, $travail_de_reve, $nourriture_favoris, $hobbies, $couleur, $meilleur_ami, $talent, $talent, $grand_reves, $traits_interessant, $status_de_reunification, $description_sur_la_reunification, $date_de_reunification, $id)) {
                 redirect_with_message('Modification fait avec success !', FLASH_SUCCESS, 'child', "child_tab.php");
             }
         } else {
