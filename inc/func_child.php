@@ -106,7 +106,7 @@ function add_update_child($urlpost, $flash = '', $nom = '', $sexe = '', $dateNai
 
                 <div class='input-group mb-3'>
                     <span class='input-group-text' id='basic-addon1'>Travail de reve </span>
-                    <input type='text' name='travail_de_reve' class='form-control' value='$freres_et_soeurs' placeholder='Ecrivez ici les noms des freres et soeurs ici' aria-label='Username' aria-describedby='basic-addon1'>
+                    <input type='text' name='travail_de_reve' class='form-control' value='$travail_de_reve' placeholder='Ecrivez ici les noms des freres et soeurs ici' aria-label='Username' aria-describedby='basic-addon1'>
                 </div>
                 <small class='text-danger'></small>
 
@@ -241,13 +241,14 @@ function child_tab($default_array, $total = '') {
                         $content_update = add_update_child(htmlspecialchars($_SERVER['PHP_SELF']), '', $array['nom'], $array['sexe'], $array['dateNaissance'], $array['ecoleClassCourant'], $array['dateArrivee'], $array['ageEntree'], $array['freres_et_soeurs'], $array['histoire'], $array['sujet_favoris'], $array['travail_de_reve'], $array['nourriture_favoris'], $array['hobbies'], $array['couleur'], $array['meilleur_ami'], $array['talent'], $array['grand_reves'], $array['traits_interessant'], $array['status_de_reunification'], $array['description_sur_la_reunification'], $array['date_de_reunification'], 'update', $array['idEnfant']);
                         $line .= (isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') ? modal("delete_".$array['idEnfant']."", "Supprimer l enfant ".$array['nom']."", "Voulez-vous vraiment supprimer cet enfant ".$array['nom']." qui a l ID : ".$array['idEnfant']."", htmlspecialchars($_SERVER["PHP_SELF"]), 'delete', "delete_".$array['idEnfant']."", 'supprimer') : '';
                         $line .= (isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') ? modal("update_".$array['idEnfant']."", 'Modifier l enfant', $content_update, htmlspecialchars($_SERVER["PHP_SELF"]), 'update', "update_".$array['idEnfant']."", 'modifier', '', false) : '';
-        
+        $age_actuel = $array['dateNaissance'] ? round(calculateAge($array['dateNaissance'])) : round(calculateAge($array['dateArrivee'])) .' ans + '.$array['ageEntree'];
         $line .= "
                 <tr>
                     <th>".$array['idEnfant']."</th>
                     <td>".$array['nom']." <br> <a href='voirenfant.php?q=".$array['idEnfant']."' class='btn btn-success m-2'> Voir</a> </td>
                     <td>".$array['sexe']."</td>
-                    <td>".$array['dateNaissance']."</td>
+                    <td>".$age_actuel."</td>
+                    <td>".$array['dateNaissance'] ."</td>
                     <td>".$array['ecoleClassCourant']."</td>
                     <td>".$array['dateArrivee']."</td>
                     <td>".$array['ageEntree']."</td>
@@ -286,6 +287,7 @@ function child_tab($default_array, $total = '') {
         <th scope='col'>id</th>
         <th scope='col'>".tr('Nom')."</th>
         <th scope='col'>Sexe</th>
+        <th scope='col'>Age actuel</th>
         <th scope='col'>".tr('Date de naissance')."</th>
         <th scope='col'>".tr('annee d ecole')."</th>
         <th scope='col'>".tr('Date d arrivee')."</th>
