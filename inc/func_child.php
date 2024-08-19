@@ -247,11 +247,11 @@ function child_tab($default_array, $total = '') {
                     <th>".$array['idEnfant']."</th>
                     <td>".$array['nom']." <br> <a href='voirenfant.php?q=".$array['idEnfant']."' class='btn btn-success m-2'> Voir</a> </td>
                     <td>".$array['sexe']."</td>
-                    <td>".$age_actuel."</td>
+                    <td>".str_replace('precis:', '',$age_actuel)."</td>
                     <td>".$array['dateNaissance'] ."</td>
                     <td>".$array['ecoleClassCourant']."</td>
                     <td>".$array['dateArrivee']."</td>
-                    <td>".$array['ageEntree']."</td>
+                    <td>".str_replace('precis:', '',$array['ageEntree'])."</td>
                     <td>".$array['freres_et_soeurs']."</td>
                     <td>".$array['histoire']."</td>
                     <td>".$array['sujet_favoris']."</td>

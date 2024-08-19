@@ -1,5 +1,6 @@
 <?php ob_start(); 
 if (isset($_SESSION['username'])) { 
+  require __DIR__.'/number_of_child.php';
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
   <div class="container-fluid">
@@ -67,7 +68,7 @@ if (isset($_SESSION['username'])) {
             
           </ul>
         </li>
-        <?php } ?>
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <?php echo tr('Enfant') ?>
@@ -80,6 +81,7 @@ if (isset($_SESSION['username'])) {
             
           </ul>
         </li>
+        <?php } ?>
         <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='magazinien ou depot') {  ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -108,6 +110,9 @@ if (isset($_SESSION['username'])) {
           <a class="nav-link btin btn-primary" href="logout.php" tabindex="-1" >Deconnexion <?php echo $_SESSION['username']  ?></a>
         </li>
         <?php } ?>
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" >Enfant : <?php echo $total_child  ?></a>
+        </li>
       </ul>
       
     </div>
