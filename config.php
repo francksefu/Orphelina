@@ -8,6 +8,6 @@
 //for remote
 
     $host = 'localhost';
-    $db = 'u471236973_compassion';
-    $user = 'u471236973_compassion';
+    $db = 'u471236973_bunia';
+    $user = 'u471236973_bunia';
     $password = 'kalunga1998@F';
