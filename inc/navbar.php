@@ -11,6 +11,7 @@ if (isset($_SESSION['username'])) {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='magazinien ou depot') { ?>
+        <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='visiteur') { ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <?php echo tr('Comptabilite') ?>
@@ -26,7 +27,8 @@ if (isset($_SESSION['username'])) {
           </ul>
         </li>
 
-        <?php } 
+        <?php } }
+         if(isset($_SESSION['post']) && $_SESSION['post'] !=='visiteur') { 
          if(isset($_SESSION['post']) && $_SESSION['post'] !=='comptable') { 
         ?>
         <li class="nav-item dropdown">
@@ -53,8 +55,10 @@ if (isset($_SESSION['username'])) {
           
           </ul>
         </li>
-        <?php } 
-        if(isset($_SESSION['post']) && $_SESSION['post'] !=='comptable' && $_SESSION['post'] !=='magazinien ou depot') { 
+        <?php } }
+        
+        if(isset($_SESSION['post']) && $_SESSION['post'] !=='comptable' && $_SESSION['post'] !=='magazinien ou depot') {
+        if(isset($_SESSION['post']) && $_SESSION['post'] !=='visiteur') {
         ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -68,21 +72,25 @@ if (isset($_SESSION['username'])) {
             
           </ul>
         </li>
-        
+        <?php } ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <?php echo tr('Enfant') ?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') {?>
+          <?php 
+          if(isset($_SESSION['post']) && $_SESSION['post'] !=='visiteur') {
+          if(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') {?>
             <li><a class="dropdown-item" href="child.php"><?php echo tr('Ajouter')  .' '. tr('un').' '.tr('Enfant') ?></a></li>
-            <?php } ?>
+            <?php } } ?>
             <li><a class="dropdown-item" href="child_tab.php"><?php echo tr('Voir')  .' '. tr('les').' '.tr('enfants') ?></a></li>
             
           </ul>
         </li>
         <?php } ?>
-        <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='magazinien ou depot') {  ?>
+        <?php 
+        if(isset($_SESSION['post']) && $_SESSION['post'] !=='visiteur') {
+        if(isset($_SESSION['post']) && $_SESSION['post'] !=='magazinien ou depot') {  ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <?php echo tr('Parametres') ?>
@@ -101,10 +109,12 @@ if (isset($_SESSION['username'])) {
             <?php } ?>
           </ul>
         </li>
-        <?php } ?>
+        <?php } }?>
+        <?php if(isset($_SESSION['post']) && $_SESSION['post'] !=='visiteur') {?>
         <li class="nav-item">
           <a class="nav-link" href="rapport.php" tabindex="-1" ><?php echo tr('Rapports') ?></a>
         </li>
+        <?php } ?>
         <?php if (isset($_SESSION['username'])) {  ?>
         <li class="nav-item">
           <a class="nav-link btin btn-primary" href="logout.php" tabindex="-1" >Deconnexion <?php echo $_SESSION['username']  ?></a>
