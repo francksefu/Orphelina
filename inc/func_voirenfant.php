@@ -40,6 +40,9 @@ function images_dossiers($array_images_dossiers)
     $content = '';
     if(! empty($array_images_dossiers)) {
         foreach($array_images_dossiers as $array) {
+            $delete_button = (isset($_SESSION['post']) && $_SESSION['post'] !=='visiteur') ? "<button type='button' class='btn btn-danger m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idAlbum']."'>
+                        Supprimer
+                    </button>" : "";
             $see_image_dossier = '';
             $button = '';
             if ($array['type'] == 'album') {
@@ -61,9 +64,7 @@ function images_dossiers($array_images_dossiers)
                     <h5 class='card-title'>".$array['title']."</h5>
                     <p class='card-text'> ".$array['description']." </p>
                     $button
-                    <button type='button' class='btn btn-danger m-1' data-bs-toggle='modal' data-bs-target='#delete_".$array['idAlbum']."'>
-                        Supprimer
-                    </button>
+                    $delete_button
                 </div>
             </div>
             $modal_update
@@ -79,6 +80,17 @@ function images_dossiers($array_images_dossiers)
 }
 function voir_enfant($array_of_images = '', $array_of_dossiers = '', $array = '', $flash ='')
 {
+    $button_add_picture = (isset($_SESSION['post']) && $_SESSION['post'] !=='visiteur') ? "
+    <button type='button' id='ajouter_album' class='btn btn-primary m-1' data-bs-toggle='modal' data-bs-target='#add_'>
+            Ajouter un fichier
+        </button>
+    " : '';
+
+    $button_add_dossier = (isset($_SESSION['post']) && $_SESSION['post'] !=='visiteur') ? "
+    <div class=''> <button type='button' id='ajouter_dossier' class='btn btn-primary m-1' data-bs-toggle='modal' data-bs-target='#add_dossier'>
+            Ajouter un dossier
+        </button> </div>
+    " : '';
     $content_add_album = add_update_album(htmlspecialchars($_SERVER['PHP_SELF'])."?q=".$_GET['q'], 'album');
     $content_add_dossier = add_update_album(htmlspecialchars($_SERVER['PHP_SELF'])."?q=".$_GET['q'], 'dossier');
     $modal_add = modal("add_", 'Ajouter un fichier', $content_add_album, htmlspecialchars($_SERVER["PHP_SELF"])."?q=".$_GET['q'], 'add', "add_", 'ajouter', '', false);
@@ -116,9 +128,7 @@ function voir_enfant($array_of_images = '', $array_of_dossiers = '', $array = ''
 <div class='border-top mt-3'>
     <h3 class='text-secondary'>Album</h3>
     <div class=''> 
-        <button type='button' id='ajouter_album' class='btn btn-primary m-1' data-bs-toggle='modal' data-bs-target='#add_'>
-            Ajouter un fichier
-        </button>
+        $button_add_picture
     </div>
     <div class='row'>
         $images
@@ -127,9 +137,7 @@ function voir_enfant($array_of_images = '', $array_of_dossiers = '', $array = ''
 
 <div class='border-top mt-3'>
     <h3 class='text-secondary'>Dossiers</h3>
-    <div class=''> <button type='button' id='ajouter_dossier' class='btn btn-primary m-1' data-bs-toggle='modal' data-bs-target='#add_dossier'>
-            Ajouter un dossier
-        </button> </div>
+    $button_add_dossier
     <div class='row'>
         $dossiers
     </div>

@@ -230,7 +230,7 @@ function child_tab($default_array, $total = '') {
     $line = '';
     
     foreach($default_array as $array) {
-        $suppression =(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur') ? "
+        $suppression =(isset($_SESSION['post']) && $_SESSION['post'] !=='directeur' && $_SESSION['post'] !=='visiteur') ? "
                         <button type='button' class='btn btn-danger p-2 m-1 bd-highlight' data-bs-toggle='modal' data-bs-target='#delete_".$array['idEnfant']."'>
                             Supprimer
                         </button>
@@ -306,7 +306,7 @@ function child_tab($default_array, $total = '') {
         <th scope='col'>".tr('Status de reunification')."</th>
         <th scope='col'>".tr('Description sur la reunification')."</th>
         <th scope='col'>".tr('Date de reunification')."</th>
-        
+
         <th scope='col'>action</th>
         </tr>
     </thead>

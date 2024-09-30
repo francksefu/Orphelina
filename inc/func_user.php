@@ -21,6 +21,7 @@ function add_update_user($urlpost, $flash = '', $username = '', $password = '', 
                         <option value='comptable'>comptable</option>
                         <option value='magazinien ou depot'>magazinien ou depot</option>
                         <option value='directeur'>directeur</option>
+                        <option value='visiteur'>visiteur</option>
                     </select>
                 </div>
 
