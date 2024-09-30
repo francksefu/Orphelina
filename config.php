@@ -4,7 +4,7 @@
     $host = 'localhost';
     $db = 'orphelina';
     $user = 'root';
-    $password = 'root';*/
+    $password = 'root'; */
 //for remote
 
     $host = 'localhost';
