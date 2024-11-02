@@ -32,5 +32,9 @@
     require __DIR__.'/func_traducteur.php';
     require __DIR__ . '/navbar.php' 
     ?>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5KTBFW7Z"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     
     
