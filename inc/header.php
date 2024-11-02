@@ -9,6 +9,15 @@
     <script defer src="../jsfiles/jquery-3.7.1.min.js"></script>
     <script defer src="../jsfiles/sortieentreedepot.js"></script>
     <link href="../cssfile/sortieentreedepot.css" rel="stylesheet" >
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PF31WZD7EP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-PF31WZD7EP');
+    </script>
 </head>
 <body class="bg-light">
     <?php 
